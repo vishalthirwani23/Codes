@@ -1,0 +1,22 @@
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        map<int,int> m;
+        vector<int> ans;
+        stack<int> s;
+        if(nums2.empty())
+            return ans;
+        int size2=nums2.size(),last_num=nums2[size2-1];
+        m[last_num]=-1;
+        s.push(last_num);
+        for(int i=size2-1;i>=0;i--){
+           while(!s.empty() && s.top()<=nums2[i])
+               s.pop();
+            if(s.empty())
+                m[nums2[i]]=-1;
+            else
+                 m[nums2[i]]=s.top();
+            s.push(nums2[i]);
+        }
+        for(int i=0;i<nums1.size();i++)
+            nums1[i]=m[nums1[i]];
+        return nums1;
+    }
