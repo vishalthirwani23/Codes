@@ -1,0 +1,48 @@
+https://leetcode.com/explore/interview/card/top-interview-questions-medium/107/linked-list/785/
+Code:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int l1=0,l2=0;
+        ListNode *tmp1=headA,*tmp2=headB;
+        while(tmp1){
+            l1++;
+            tmp1=tmp1->next;
+        }
+         while(tmp2){
+            l2++;
+            tmp2=tmp2->next;
+        }
+        if(l1>l2){
+            tmp1=headA;
+            int x=l1-l2;
+            while(x--)
+               tmp1=tmp1->next;
+            tmp2=headB;
+        }
+        else{
+            tmp2=headB;
+            int x=l2-l1;
+            while(x--)
+               tmp2=tmp2->next;
+            tmp1=headA;
+        }
+        while(tmp1 && tmp2){
+            if(tmp1==tmp2)
+                return tmp1;
+            tmp1=tmp1->next;
+            tmp2=tmp2->next;
+            
+        }
+        return NULL;
+    }
+};
