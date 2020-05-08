@@ -1,0 +1,31 @@
+https://leetcode.com/explore/interview/card/top-interview-questions-medium/107/linked-list/784/
+Code:
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(head==NULL){
+            return head;
+        }
+        ListNode *oddHead,*evenHead,*odd,*even;
+        oddHead=head;odd=head;evenHead=head->next;even=head->next;
+        while(even && even->next  ){
+            odd->next=even->next;
+            even->next=even->next->next;
+            odd=odd->next;
+            even=even->next;    
+        }
+        odd->next=evenHead;
+        return oddHead;
+    }
+};
