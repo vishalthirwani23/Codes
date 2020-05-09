@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/inorder-successor-in-bst/1
+Code:
+
+Node * inOrderSuccessor(Node *root, Node *x)
+{
+    if(x==NULL)
+    return NULL;
+    if(root==NULL)
+    return NULL;
+    
+    Node *curr=root;
+    if(x->right){
+        Node *tmp1=x->right;
+        while(tmp1->left)
+        tmp1=tmp1->left;
+        return tmp1;
+    }
+    else{
+        Node *tmp2=NULL,*tmp3=root;
+        while(tmp3->data!=x->data){
+            if(tmp3->data>x->data){
+                tmp2=tmp3;
+                tmp3=tmp3->left;
+            }
+            else
+              tmp3=tmp3->right;
+        }
+        return tmp2;
+    }
+}
