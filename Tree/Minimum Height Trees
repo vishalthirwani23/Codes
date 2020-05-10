@@ -1,0 +1,44 @@
+https://leetcode.com/problems/minimum-height-trees/
+Code:
+
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+        vector<int> degree(n,0);
+        vector<int> ans;
+        vector<vector<int>> adj(n); 
+        for(auto i:edges){
+            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
+            degree[i[0]]++;
+            degree[i[1]]++;
+            
+            }
+         int nodecount=n;
+        while(nodecount>2){
+            queue<int> q;
+            for(int i=0;i<n;i++){
+                if(degree[i]==1){
+                    degree[i]=-1;
+                    q.push(i);
+                }
+            }
+                while(!q.empty()){
+                    nodecount--;
+                    int temp=q.front();
+                    q.pop();
+                    for(auto i:adj[temp]){
+                        degree[i]-=1;
+                    }
+                }
+            
+        }
+       
+        for(int i=0;i<n;i++){
+               if(degree[i]==1 || degree[i]==0)
+                    ans.push_back(i);
+                }
+        return ans;
+    }
+};
+static int x = []() {ios::sync_with_stdio(false); cin.tie(0); return 0; } ();
