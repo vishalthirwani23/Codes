@@ -1,0 +1,39 @@
+https://leetcode.com/problems/k-concatenation-maximum-sum/
+Code:
+
+#define mod 1000000007;
+class Solution {
+public:
+    int kConcatenationMaxSum(vector<int>& arr, int k) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        int sum=0,sumall=0,suff=0,pref=0,a=0,b=0,c=0,n=arr.size(),x,sum2;
+         for(int i=0;i<arr.size();i++){
+             sumall=(sumall+arr[i])%mod;
+             a=(a+arr[i])%mod;
+             a=max(0,a); 
+             sum=max(sum,a);
+            
+         }  
+        sumall=max(0,sumall);
+        x=sumall;
+        sum2=sumall;
+        for(int i=1;i<=k-1;i++){
+        sumall=(x+sumall)%mod;
+            if(i==k-3)
+                sum2=sumall;
+        }
+         for(int i=0;i<arr.size();i++){
+             b=(b+arr[i])%mod;
+            
+             pref=max(pref,b);
+         }
+        
+         for(int i=n-1;i>=0;i--){
+            c=(c+arr[i])%mod;
+             suff=max(c,suff);
+         }
+     
+        return max({sumall,sum,k>1?suff+pref:0,k>2?suff+sum2+pref:0});
+    }
+};
