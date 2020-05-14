@@ -1,0 +1,30 @@
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+Code:
+
+#include<string>
+class Solution {
+
+public:
+    vector<string> ans;
+    vector<string> m = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+   
+    void backtrack(string temp1,string temp2){
+        if(temp2.length()==0){
+            ans.push_back(temp1);
+            return ;
+        }
+        char c=temp2[0];
+        for(auto i:m[c-'2']){
+            string temp3=temp1;
+            temp1+=i;
+            backtrack(temp1,temp2.substr(1));
+            temp1=temp3;
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+       if(digits.length()==0)
+           return ans;
+        backtrack("",digits);
+        return ans;
+    }
+};
