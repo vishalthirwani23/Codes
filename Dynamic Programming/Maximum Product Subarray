@@ -1,0 +1,23 @@
+https://leetcode.com/problems/maximum-product-subarray/
+Code:
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        int curr_max=nums[0],curr_min=nums[0],final_max=nums[0],n=nums.size();
+       
+   for(int i=1;i<n;i++){
+       int temp=curr_max;
+      curr_max=max({nums[i],curr_min*nums[i],curr_max*nums[i]});
+      curr_min=min({nums[i],curr_min*nums[i],temp*nums[i]}); 
+              
+       if(curr_max>final_max)
+           final_max=curr_max;
+
+   }
+   
+        return final_max;
+    }
+};
