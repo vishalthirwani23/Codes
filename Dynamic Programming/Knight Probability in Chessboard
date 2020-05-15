@@ -1,0 +1,33 @@
+https://leetcode.com/problems/knight-probability-in-chessboard/
+Code:
+
+class Solution {
+public:
+    double knightProbability(int N, int K, int r, int c) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        vector<vector<double>> dp1(N,vector<double>(N));
+        double ans=0;
+       
+        int dx[]={2,2,-2,-2,1,1,-1,-1};
+        int dy[]={1,-1,1,-1,2,-2,2,-2};
+        dp1[r][c]=1.0;
+        while(K--){
+            vector<vector<double>> dp2(N,vector<double>(N,0));
+           
+            for(int i=0;i<N;i++){
+                for(int j=0;j<N;j++){
+                    for(int k=0;k<8;k++){
+                        if(i+dx[k]>=0 && i+dx[k]<N && j+dy[k]>=0 && j+dy[k]<N)
+                    dp2[i][j]+=(dp1[i+dx[k]][j+dy[k]]/8.0);
+                        }
+                }
+            }
+            dp1=dp2;
+        }
+        for(int i=0;i<N;i++)
+                for(int j=0;j<N;j++)
+        ans+=dp1[i][j];
+        return ans;
+    }
+};
