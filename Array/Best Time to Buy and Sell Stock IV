@@ -1,0 +1,29 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+Code:
+
+class Solution {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+    unsigned int n=prices.size();
+        if(n<=1 || k==0)
+            return 0;
+        if(k>=n/2){
+            int ans=0;
+            for(int i=1;i<n;i++)
+                ans+=max(0,prices[i]-prices[i-1]);
+            return ans;
+        }
+        int buy[k],sell[k];
+        for(int i=0;i<k;i++)
+            buy[i]=sell[i]=INT_MIN;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<k;j++){
+                buy[j]=max(buy[j],(j!=0?sell[j-1]:0)-prices[i]);
+                sell[j]=max(sell[j],buy[j]+prices[i]);
+            }
+        }
+        return sell[k-1];
+    }
+};
