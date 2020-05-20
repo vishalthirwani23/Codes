@@ -1,0 +1,52 @@
+https://practice.geeksforgeeks.org/problems/construct-binary-tree-from-parent-array/1
+Code:
+
+/* node structure  used in the program
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+/*  Function which returns the  root of 
+    the constructed binary tree. */
+Node* newNode(int x){
+    Node *tmp=new Node(x);
+    tmp->left=NULL;
+    tmp->right=NULL;
+    return tmp;
+}
+
+void create(int *parent,int i,vector<Node *>& v,Node **root){
+    if(v[i]!=NULL)
+       return ;
+     v[i]=newNode(i);  
+     if(parent[i]==-1){
+         (*root)=v[i];
+         return ;
+     }
+     if(v[parent[i]]==NULL)
+         create(parent,parent[i],v,root);
+    Node *p=v[parent[i]];
+    if(p->left==NULL)
+    p->left=v[i];
+    else
+     p->right=v[i];
+}
+Node *createTree(int parent[], int n)
+{
+    // Your code here
+    int cnt=0;
+    Node *root;
+    vector<Node *> v(n,NULL);
+    for(int i=0;i<n;i++)
+       create(parent,i,v,&root);
+    return root;
+}
