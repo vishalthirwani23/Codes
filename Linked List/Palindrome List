@@ -1,0 +1,36 @@
+https://www.interviewbit.com/problems/palindrome-list/
+Code:
+
+ ListNode* reverse(ListNode *A){
+     ListNode *nxt,*prev=NULL;
+     while(A){
+         nxt=A->next;
+         A->next=prev;
+         prev=A;
+         A=nxt;
+     }
+     return prev;
+ }
+int Solution::lPalin(ListNode* A) {
+   if(A==NULL || A->next==NULL )
+      return 1;
+   if(A->next->next==NULL){
+    if(A->val==A->next->val)
+       return 1;
+       return 0;
+   }
+   ListNode *slow=A,*fast=A,*tmp1=A;
+   while(fast->next && fast->next->next ){
+       slow=slow->next;
+       fast=fast->next->next;
+   }
+   ListNode *tmp2=reverse(slow->next);
+    slow->next==NULL;
+   while(tmp2){
+       if(tmp1->val!=tmp2->val)
+       return 0;
+       tmp1=tmp1->next;
+       tmp2=tmp2->next;
+   }
+   return 1;
+}
