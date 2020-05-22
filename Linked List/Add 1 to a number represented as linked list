@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1
+Code:
+
+Node *addOne(Node *head)
+{
+   Node *dummy=new Node();
+   dummy->data=0;
+   dummy->next=head;
+   Node *tmp1=dummy,*tmp2=head;
+   while(tmp2){
+       if(tmp2->data!=9)
+       tmp1=tmp2;
+       tmp2=tmp2->next;
+   }
+      tmp2=dummy;
+       while(tmp2!=tmp1)
+         tmp2=tmp2->next;
+         tmp2->data++;
+         tmp2=tmp2->next;
+         while(tmp2){
+           tmp2->data=0;
+           tmp2=tmp2->next;
+       }
+       return tmp1==dummy?dummy:head;
+  
+}
