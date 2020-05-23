@@ -1,0 +1,27 @@
+https://www.interviewbit.com/problems/merge-k-sorted-lists/
+Code:
+
+ListNode* Solution::mergeKLists(vector<ListNode*> &A) {
+   priority_queue<pair<int,ListNode*>,vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>> pq;
+   ListNode *ans;
+   for(int i=0;i<A.size();i++){
+       ListNode *head=A[i];
+       if(head)
+           pq.push({head->val,head});
+   }
+    ans= pq.top().second;
+    while(1){
+       auto y1=pq.top();
+       pq.pop();
+       if(pq.empty())
+           break;
+       if(y1.second->next==NULL)
+           y1.second->next=pq.top().second;
+       else{
+       pq.push({y1.second->next->val,y1.second->next});
+       auto y4=pq.top();
+       y1.second->next=y4.second;
+       }
+    }
+    return ans;
+}
