@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/ncr/0
+Code:
+
+#include<bits/stdc++.h>
+#define int long long
+using namespace std;
+int32_t main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n,k;
+	cin>>n>>k;
+	      int dp[k+1]={0};
+	      dp[0]=1;
+	      for(int i=1;i<=n;i++)
+	          for(int j=min(i,k);j>0;j--)
+	              dp[j]=(dp[j]+dp[j-1])%1000000007;
+	       cout<<dp[k]<<"\n";
+	}
+	return 0;
+}
