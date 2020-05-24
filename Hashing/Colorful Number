@@ -1,0 +1,22 @@
+https://www.interviewbit.com/problems/colorful-number/
+Code:
+
+int Solution::colorful(int A) {
+    int p=A;
+    string s=to_string(p);
+    int y=s.length();
+    int x=y*(y+1)/2;
+    map<int,int> m;
+    for(int i=1;i<=y;i++){
+        for(int j=0;j<=s.length()-i;j++){
+            string s1=s.substr(j,i);
+            int res=1;
+            for(int k=0;k<s1.length();k++)
+                res*=(s1[k]-'0');
+            if(m[res])
+            return 0;
+            m[res]=1;
+        }
+    }
+    return 1;
+}
