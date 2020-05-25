@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/square-root-of-integer/
+Code:
+
+int Solution::sqrt(int A) {
+    if(A==0)
+     return 0;
+    int l=1,r=A,ans;
+    while(l<=r){
+        int mid=l+(r-l)/2;
+        if(A%mid==0 && mid==A/mid)
+          return mid;
+          else if(mid>A/mid)
+          r=mid-1;
+          else{
+              ans=mid;
+              l=mid+1;
+          }
+    }
+    return ans;
+}
