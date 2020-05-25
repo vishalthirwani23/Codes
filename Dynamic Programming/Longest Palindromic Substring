@@ -1,6 +1,7 @@
 https://leetcode.com/problems/longest-palindromic-substring/
 Code:
 
+Method 1:O(n*n) time complexity | O(n*n) space complexity
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -24,6 +25,5 @@ public:
             }
         }
         return s.substr(p,e-p+1);
-       
     }
 };
