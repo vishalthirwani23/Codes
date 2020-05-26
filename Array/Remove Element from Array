@@ -1,0 +1,12 @@
+https://www.interviewbit.com/problems/remove-element-from-array/
+Code:
+
+int Solution::removeElement(vector<int> &A, int B) {
+    int ans=A.size(),j=0;
+    for(int i=0;i<A.size();i++){
+        if(A[i]!=B)
+        A[j++]=A[i];
+    }
+    A.resize(j);
+    return j;
+}
