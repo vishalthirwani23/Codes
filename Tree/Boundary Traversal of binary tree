@@ -1,0 +1,44 @@
+https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+Code:
+
+void printleft(Node *root){    
+    if(root==NULL) return;
+    if(root->left){
+         cout<<root->data<<" ";
+         printleft(root->left);
+    }
+    else if(root->right){
+         cout<<root->data<<" ";
+         printleft(root->right);
+    }
+}
+
+void printleaf(Node *root){
+    if(root==NULL) return;
+    printleaf(root->left);
+    if(root->left==NULL && root->right==NULL)
+     cout<<root->data<<" ";
+      printleaf(root->right);
+}
+
+void printright(Node *root){
+    if(root==NULL) return;
+     if(root->right){
+    printright(root->right);
+     cout<<root->data<<" ";
+    }
+    else if(root->left){
+    printright(root->left);
+     cout<<root->data<<" ";
+    }
+}
+
+void printBoundary(Node *root)
+{
+    if(root==NULL) return;
+     cout<<root->data<<" ";
+    printleft(root->left);
+    printleaf(root->left);
+    printleaf(root->right);
+    printright(root->right);
+}
