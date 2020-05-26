@@ -1,0 +1,50 @@
+https://leetcode.com/problems/statistics-from-a-large-sample/
+Code:
+
+class Solution {
+public:
+    vector<double> sampleStats(vector<int>& count) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        double mn=-1,mx,mean,median,mode=0,n=0;
+        int start=0,end=count.size()-1;
+        for(int i=0;i<256;i++){
+            if(mn==-1 && count[i])
+                mn=i;
+            if(count[i])
+                mx=i;
+            mean+=i*count[i];
+            n+=count[i];
+            if(count[i]>count[mode])
+            mode=i;
+        }
+        mean=mean*1.0/n;
+         while(start <end-1){
+            while(count[start]==0)
+                start++;
+            while(count[end]==0)
+                end--;
+            if(count[start]<count[end]){
+                count[end]-=count[start];
+                count[start]=0;
+                start++;
+            } 
+             else{
+                count[start]-=count[end];
+                count[end]=0;
+                 if(count[start]==0)
+                     start++;
+                end--;
+             }
+        }
+        if(count[start]>count[end])
+            median=start;
+        else if(count[start]==count[end])
+        median=(double)(start+end)*1.0/2;
+        else
+            median=end;
+        return {mn,mx,mean,median,mode};
+    }
+};
+ 
+	
