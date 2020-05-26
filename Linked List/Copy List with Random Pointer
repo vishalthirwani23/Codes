@@ -1,6 +1,7 @@
 https://leetcode.com/problems/copy-list-with-random-pointer/
 Code:
 
+Method 1: O(n) space complexity | O(n) time complexity
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
