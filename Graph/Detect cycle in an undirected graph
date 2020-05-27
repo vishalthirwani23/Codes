@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+Code:
+
+vector<bool> visited;
+bool dfs(int x, int parent,vector<int> g[]) {
+       visited[x]=true;
+        if(g[x].empty()) return false;
+        for(int i=0;i<g[x].size();i++){
+            if(visited[g[x][i]]==true && g[x][i]!=parent)
+                return true;
+            else if(visited[g[x][i]]==false)
+            if(dfs(g[x][i],x,g)==true) return true;
+        }
+        return false;
+   }
+bool isCyclic(vector<int> g[], int V)
+{
+    visited.clear();
+    visited.resize(V);
+    for(int i=0;i<V;i++){
+            if(visited[i]==false){
+                bool x=dfs(i,i,g);
+                if(x==true)
+                    return true;
+            }
+        }
+        return false;
+}
