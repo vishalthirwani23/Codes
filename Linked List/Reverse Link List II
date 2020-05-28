@@ -1,0 +1,26 @@
+https://www.interviewbit.com/problems/reverse-link-list-ii/
+Code:
+
+ListNode* Solution::reverseBetween(ListNode* A, int B, int C) {
+    if(A==NULL || B==C) return A;
+    int x;
+    ListNode *prev,*curr,*next;
+         ListNode *tmp1=NULL,*tmp2=A;
+         x=B-1;
+         while(x--){
+             tmp1=tmp2;
+             tmp2=tmp2->next;
+         }
+         curr=tmp2->next;
+         prev=tmp2;
+         x=C-B;
+         while(x--){
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+         }
+         if(tmp1) tmp1->next=prev;
+         tmp2->next=next;
+         return B==1?prev:A;
+}
