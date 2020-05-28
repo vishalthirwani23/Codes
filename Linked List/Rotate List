@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/rotate-list/
+Code:
+
+ListNode* Solution::rotateRight(ListNode* A, int B) {
+    if(B==0 || A==NULL) return A;
+    int l=0;
+    ListNode *tmp1=A,*tmp2=A,*tmp3=A,*tmp4,*tmp5;
+    while(tmp3) l++,tmp5=tmp3,tmp3=tmp3->next;
+    B=B%l;
+    if(B==0) return A;
+    while(B--) tmp2=tmp2->next;
+    while(tmp2){
+        tmp4=tmp1;
+        tmp1=tmp1->next;
+        tmp2=tmp2->next;
+    }
+        tmp5->next=A;
+        tmp4->next=NULL;
+    return tmp1;
+}
