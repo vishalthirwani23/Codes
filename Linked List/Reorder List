@@ -1,0 +1,31 @@
+https://www.interviewbit.com/problems/reorder-list/
+Code:
+
+ListNode* Solution::reorderList(ListNode* A) {
+    if(A==NULL || A->next==NULL || A->next->next==NULL) return A;
+    int len=0;
+    ListNode *tmp=A,*curr,*next,*prev=NULL,*tmp2,*tmp3;
+    while(tmp) len++,tmp=tmp->next;
+    int x=(len+1)/2;
+    tmp=A;
+    while(--x) tmp=tmp->next;
+    curr=tmp->next;
+    tmp->next=NULL;
+    while(curr){
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    tmp=A;
+    x=len/2;
+    while(x--){
+        tmp2=tmp->next;
+        tmp->next=prev;
+        tmp3=prev->next;
+        prev->next=tmp2;
+        tmp=tmp2;
+        prev=tmp3;
+    }
+    return A;
+}
