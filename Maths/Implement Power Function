@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/implement-power-function/
+Code:
+
+int Solution::pow(int a, int n, int d) {
+   
+    long long int x = a;
+    x=x%d;
+    if(x==0) return 0;
+    if(x==1) return 1%d;
+    if(n==0) return 1%d;
+    if(n==1) return (x>=0?x:(d+x)%d);
+    long long int  res=1;
+    while(n>0){
+        if(n%2)
+        res=(res*x)%d;
+        n/=2;
+        x=(x*x)%d;
+    }
+    return (res>=0?res:(d+res)%d);
+}
