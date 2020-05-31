@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/largest-number/
+Code:
+
+bool cmp(int a,int b){
+    string s1,s2;
+    s1=to_string(a)+to_string(b);
+    s2=to_string(b)+to_string(a);
+    return s1>s2;
+}
+ 
+string Solution::largestNumber(const vector<int> &A) {
+    vector<int> A1=A;
+    sort(A1.begin(),A1.end(),cmp);
+    string ans;
+    for(int i=0;i<A1.size();i++){
+    ans+=to_string(A1[i]);
+    if(i==1 && ans=="00") return "0";
+    }
+    return ans;
+}
