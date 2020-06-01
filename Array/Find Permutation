@@ -1,0 +1,15 @@
+https://www.interviewbit.com/problems/find-permutation/
+Code:
+
+vector<int> Solution::findPerm(const string A, int B) {
+    vector<int> ans;
+    int curr_smallest=1,curr_largest=B;
+    for(int i=0;i<B-1;i++){
+        if(A[i]=='I')
+        ans.push_back(curr_smallest),curr_smallest++;
+        else
+        ans.push_back(curr_largest),curr_largest--;
+    }
+    ans.push_back(curr_largest);
+    return ans;
+}
