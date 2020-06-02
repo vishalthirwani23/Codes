@@ -1,0 +1,14 @@
+https://www.interviewbit.com/problems/array-3-pointers/
+Code:
+
+int Solution::minimize(const vector<int> &A, const vector<int> &B, const vector<int> &C) {
+    int i=0,j=0,k=0,n1=A.size(),n2=B.size(),n3=C.size(),ans=INT_MAX;
+    while(i<n1 && j<n2 && k<n3){
+        ans=min(ans,max({A[i],B[j],C[k]})-min({A[i],B[j],C[k]}));
+        int x=min({A[i],B[j],C[k]});
+        if(A[i]==x) i++;
+        else if(B[i]==x) j++;
+        else k++;
+    }
+    return ans;
+}
