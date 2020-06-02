@@ -1,0 +1,17 @@
+https://www.interviewbit.com/problems/minimize-the-absolute-difference/
+Code:
+
+int Solution::solve(vector<int> &A, vector<int> &B, vector<int> &C) {
+    int n1=A.size()-1,n2=B.size()-1,n3=C.size()-1,ans=INT_MAX;
+    while(n1!=-1 && n2!=-1 && n3!=-1){
+        ans=min(ans,max({A[n1],B[n2],C[n3]})-min({A[n1],B[n2],C[n3]}));
+        int x=max({A[n1],B[n2],C[n3]});
+        if(A[n1]==x)
+        n1--;
+        else if(B[n2]==x)
+        n2--;
+        else
+        n3--;
+    }
+    return ans;
+}
