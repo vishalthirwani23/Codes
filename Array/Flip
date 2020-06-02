@@ -1,0 +1,17 @@
+https://www.interviewbit.com/problems/flip/
+Code:
+
+vector<int> Solution::flip(string A) {
+    int n=A.length(),l,r,max_diff=0,sum=0,j=0;
+    for(int i=0;i<n;i++){
+        sum+=(A[i]=='0'?1:-1);
+        if(sum<0) j=i+1,sum=0;
+        else if(sum>max_diff){
+            l=j;
+            r=i;
+            max_diff=sum;
+        }
+    }
+    if(max_diff==0) return {};
+    return {l+1,r+1};
+}
