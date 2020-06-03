@@ -1,7 +1,7 @@
 https://leetcode.com/problems/longest-palindromic-substring/
 Code:
 
-Method 1:O(n*n) time complexity | O(n*n) space complexity
+Method 1: Time Complexity O(n*n) | Space Complexity O(n*n)
 class Solution {
 public:
     string longestPalindrome(string s) {
@@ -27,3 +27,32 @@ public:
         return s.substr(p,e-p+1);
     }
 };
+
+Method 2: Time Complexity O(n*n) | Space Complexity O(1)
+string Solution::longestPalindrome(string A) {
+    string ans;
+    int len=0,finall,finalr;
+    int n=A.length();
+    for(int i=0;i<n;i++){
+        int l=i,r=i;
+        while(l>=0 && r<n && A[l]==A[r]){
+            l--;
+            r++;
+        }
+        l++;
+        r--;
+        if(r-l+1>len) finall=l,finalr=r,len=r-l+1;
+    }
+    for(int i=0;i<n;i++){
+        int l=i,r=i+1;
+        while(l>=0 && r<n && A[l]==A[r]){
+            l--;
+            r++;
+        }
+        l++;
+        r--;
+        if(r-l+1>len) finall=l,finalr=r,len=r-l+1;
+    }
+    
+    return A.substr(finall,len);
+}
