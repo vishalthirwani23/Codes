@@ -1,6 +1,7 @@
 https://practice.geeksforgeeks.org/problems/inversion-of-array/0
 Code:
 
+Method 1: Time Complexity O(nlogn) | Space Complexity O(1)
 #include<bits/stdc++.h>
 using namespace std;
 long long ans;
