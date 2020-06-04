@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/reverse-the-string/
+Code:
+
+string Solution::solve(string A) {
+    int n=A.length(),i=0,j=n-1,k=0;
+    vector<string> v;
+    string ans,temp;
+    while(i<n && A[i]==' ') i++;
+    if(i==n) return ans;
+    while(A[j]==' ') j--;
+    A=A.substr(i,j-i+1);
+    n=A.length();
+    while(k<n){
+        while(k<n && A[k]!=' ') temp+=A[k++];
+         v.push_back(temp);
+         temp.clear();
+          while(k<n && A[k]==' ') k++;
+    }
+    int n=v.size();
+}
