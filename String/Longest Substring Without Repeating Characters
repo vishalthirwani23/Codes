@@ -1,23 +1,25 @@
-https://leetcode.com/problems/longest-substring-without-repeating-characters/
+https://www.interviewbit.com/problems/longest-substring-without-repeat/
 Code:
 
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-        int ans=0,prev=0;
-        map<char,int> m;
-        for(int i=0;i<s.length();i++){
-           if(m[s[i]])
-               prev=max(prev,m[s[i]]);
-         
-            ans=max(i-prev+1,ans);
-            m[s[i]]=i+1;
+int Solution::lengthOfLongestSubstring(string A) {
+    int n=A.length(),l=0,r=0;
+    if(n<2) return n;
+    int ans=1;
+    map<char,int> m;
+    while(r<n){
+        if(m[A[r]]==0){
+            m[A[r]]=1;
+            ans=max(ans,r-l+1);
+            r++;
         }
-        return ans;
+        else{
+            m[A[l]]=0;
+            l++;
+        }
     }
-};
+    return ans;
+}
+
 
 
 
