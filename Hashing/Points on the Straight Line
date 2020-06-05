@@ -1,0 +1,30 @@
+https://www.interviewbit.com/problems/points-on-the-straight-line/
+Code:
+
+int Solution::maxPoints(vector<int> &A, vector<int> &B) {
+    int n=A.size(),curr,vertical,overlap,Max=0;
+    if(n<=2) return n;
+   
+    for(int i=0;i<n;i++){
+         map<pair<int,int>,int> m;
+        curr=vertical=overlap=0;
+        for(int j=i+1;j<n;j++){
+            if(A[i]==A[j] && B[i]==B[j])
+             overlap++;
+            else if(A[i]==A[j])
+             vertical++;
+            else {
+                int xdiff=A[i]-A[j];
+                int ydiff=B[i]-B[j];
+                int gc=__gcd(xdiff,ydiff);
+                xdiff/=gc;
+                ydiff/=gc;
+                m[{xdiff,ydiff}]++;
+                curr=max(curr,m[{xdiff,ydiff}]);
+                
+            } 
+        }
+        Max=max({Max,curr+1+overlap,vertical+1});
+    }
+    return Max;
+}
