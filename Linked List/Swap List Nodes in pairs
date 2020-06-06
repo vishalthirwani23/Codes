@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/swap-list-nodes-in-pairs/
+Code:
+
+ListNode* Solution::swapPairs(ListNode* A) {
+    if(A==NULL || A->next==NULL) return A;
+    ListNode *first=A,*second=A->next,*ans=second;
+    while(first && second){
+        ListNode *temp=second->next;
+        second->next=first;
+        if(temp==NULL || temp->next==NULL)
+        first->next=temp;
+        else
+            first->next=temp->next;
+        
+        first=temp;
+        if(temp) second=temp->next;
+        else second=NULL;
+    }
+    return ans;
+}
