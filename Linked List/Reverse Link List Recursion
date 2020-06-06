@@ -1,0 +1,16 @@
+https://www.interviewbit.com/problems/reverse-link-list-recursion/
+Code:
+
+ListNode* reverseListutil(ListNode* curr,ListNode* prev){
+     if(curr==NULL) return prev;
+     ListNode *next=curr->next;
+     curr->next=prev;
+     prev=curr;
+     curr=next;
+     return reverseListutil(curr,prev);
+}
+ListNode* Solution::reverseList(ListNode* A) {
+    if(A==NULL || A->next==NULL) return A;
+    ListNode *curr=A,*prev=NULL;
+    return reverseListutil(curr,prev);
+}
