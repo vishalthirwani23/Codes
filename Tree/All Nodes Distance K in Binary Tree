@@ -1,0 +1,54 @@
+https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+Code:
+
+class Solution {
+public:
+    map<TreeNode*,TreeNode*> m;
+    vector<int> ans;
+    void dfs(TreeNode* root,TreeNode *parent){
+        if(root!=NULL){
+            m[root]=parent;
+            dfs(root->left,root);
+            dfs(root->right,root);
+        }
+    }
+    
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+       
+        if(root==NULL ) return ans;
+        if(K==0) return {target->val};
+        dfs(root,NULL);
+        queue<TreeNode*> q;
+        q.push(target);
+       
+        map<TreeNode*,int> seen;
+        seen[NULL]=1;
+        seen[target]=1;
+        while(K){
+           queue<TreeNode*> temp;
+            while(!q.empty()){
+                TreeNode *tmp=q.front();
+                 q.pop();
+                
+                    if(!seen[tmp->left])
+                    seen[tmp->left]=1,temp.push(tmp->left);
+                    if(!seen[tmp->right])
+                   seen[tmp->right]=1,temp.push(tmp->right);
+                  if(!seen[m[tmp]])
+                   seen[m[tmp]]=1,temp.push(m[tmp]);
+                
+                }
+            K--;
+           
+            q=temp;
+            }
+           
+        
+       while(!q.empty()){
+            TreeNode *tmp=q.front();
+                 q.pop();
+           ans.push_back(tmp->val);
+       }
+        return ans;
+    }
+};
