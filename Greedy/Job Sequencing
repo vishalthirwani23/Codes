@@ -1,0 +1,25 @@
+https://www.interviewbit.com/problems/job-sequencing/
+Code:
+
+Method 1:
+int Solution::solve(vector<int> &A, vector<int> &B) {
+    int n=A.size(),mn=INT_MIN,ans=0;
+    vector<pair<int,int>> v(n);
+    for(int i=0;i<n;i++){
+        v[i].first=A[i];
+         v[i].second=B[i];
+         mn=max(mn,A[i]);
+    }
+    vector<bool> v2(mn+1);
+    sort(v.begin(),v.end());
+     for(int i=0;i<n;i++){
+         for(int j=v[i].first;j>=1;j--){
+             if(!v2[j]){
+                 v2[j]=1;
+                 ans+=v[i].second;
+                 break;
+             }
+         }
+     }
+     return ans;
+}
