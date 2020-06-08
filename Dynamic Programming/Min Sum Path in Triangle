@@ -1,0 +1,18 @@
+https://www.interviewbit.com/problems/min-sum-path-in-triangle/
+Code:
+
+int Solution::minimumTotal(vector<vector<int> > &A) {
+    vector<int> dp;
+    dp.push_back(A[0][0]);
+    int m=A.size();
+    for(int i=1;i<m;i++){
+        vector<int> dp2(i+1);
+        for(int j=0;j<i+1;j++){
+            if(j==0) dp2[j]=dp[0]+A[i][0];
+            else if(j==i) dp2[j]=dp[i-1]+A[i][j];
+            else dp2[j]=min(dp[j],dp[j-1])+A[i][j];
+        }
+        dp=dp2;
+    }
+    return *min_element(dp.begin(),dp.end());
+}
