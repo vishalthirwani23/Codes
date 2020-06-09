@@ -1,0 +1,7 @@
+https://www.interviewbit.com/problems/find-if-two-rectangles-overlap/
+Code:
+
+int Solution::solve(int A, int B, int C, int D, int E, int F, int G, int H) {
+    if(E>=C || F>=D || G<=A || B>=H) return 0;
+    return 1;
+}
