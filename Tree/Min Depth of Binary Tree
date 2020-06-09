@@ -1,0 +1,14 @@
+https://www.interviewbit.com/problems/min-depth-of-binary-tree/
+Code:
+
+int minDepthUtil(TreeNode* A,int h){
+      if(A->left==NULL && A->right==NULL) return h;
+      if(A->left==NULL)  return minDepthUtil(A->right,h+1);
+      if(A->right==NULL) return minDepthUtil(A->left,h+1);
+      return min(minDepthUtil(A->right,h+1),minDepthUtil(A->left,h+1));
+ }
+int Solution::minDepth(TreeNode* A) {
+    if(A==NULL) return 0;
+    int h=1;
+    return minDepthUtil(A,h);
+}
