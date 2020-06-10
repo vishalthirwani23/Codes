@@ -1,0 +1,23 @@
+https://www.interviewbit.com/problems/find-sub-array-with-the-given-sum/
+Code:
+
+vector<int> Solution::solve(vector<int> &A, int B) {
+  long long n=A.size(),l=0,r,sum=0,i;
+    for( i=0;i<n;i++){
+       
+        sum+=A[i];
+        while(sum>B){
+            sum-=A[l];
+            l++;
+        }
+        if(sum==B){
+            r=i;
+            break;
+        }
+       
+    }
+    if(i==n) return {-1};
+    vector<int> ans;
+    for(i=l;i<=r;i++) ans.push_back(A[i]);
+    return ans;
+}
