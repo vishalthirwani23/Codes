@@ -1,0 +1,24 @@
+https://leetcode.com/problems/edit-distance/
+Code:
+
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int m=word1.length(),n=word2.length();
+        vector<int> dp(n+1);
+        for(int i=0;i<=n;i++)
+            dp[i]=i;
+        for(int i=1;i<=m;i++){
+            vector<int> dp2(n+1);
+            for(int j=0;j<=n;j++){
+                if(j==0) dp2[j]=i;
+                else if(word1[i-1]==word2[j-1])
+                   dp2[j]=dp[j-1];
+               else
+                   dp2[j]=1+min({dp2[j-1],dp[j-1],dp[j]});
+            }
+            dp=dp2;
+        }
+        return dp[n];
+    }
+};
