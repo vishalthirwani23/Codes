@@ -4,19 +4,19 @@ Code:
 class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-        int n1=text1.length(),n2=text2.length(),dp[n1+1][n2+1];
+        int n1=text1.length(),n2=text2.length();
+        vector<int> dp(n2+1);
         for(int i=0;i<=n2;i++)
-            dp[0][i]=0;
-        for(int i=0;i<=n1;i++)
-            dp[i][0]=0;
-        
+            dp[i]=0;
         for(int i=1;i<=n1;i++){
-            for(int j=1;j<=n2;j++){
-                dp[i][j]=(text1[i-1]==text2[j-1]?1+dp[i-1][j-1]:max(dp[i][j-1],dp[i-1][j]));
+             vector<int> dp2(n2+1);
+            for(int j=0;j<=n2;j++){
+                if(j==0) dp2[j]=0;
+                else
+                dp2[j]=(text1[i-1]==text2[j-1]?1+dp[j-1]:max(dp2[j-1],dp[j]));
             }
+            dp=dp2;
         }
-        return dp[n1][n2]; 
+        return dp[n2]; 
     }
 };
