@@ -1,0 +1,15 @@
+https://www.interviewbit.com/problems/jump-game-array/
+Code:
+
+int Solution::canJump(vector<int> &A) {
+    int n=A.size();
+    int left=n-2,pos=n-1;
+   while(left>=0){
+       if(left+A[left]>=pos){
+           pos=left;
+       }
+       left--;
+   }
+    return pos==0;
+}
+
