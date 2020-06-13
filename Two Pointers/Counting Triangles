@@ -1,0 +1,21 @@
+https://www.interviewbit.com/problems/counting-triangles/
+Code:
+
+#define mod 1000000007
+int Solution::nTriang(vector<int> &A) {
+    sort(A.begin(),A.end());
+    int n=A.size(),ans=0;
+    
+    for(int i=n-1;i>=2;i--){
+        int l=0,r=i-1;
+        while(l<r){
+            if(A[l]+A[r]>A[i]){
+                ans=(ans +r-l)%mod;
+                r--;
+            }
+            else
+            l++;
+        }
+    }
+    return ans;
+}
