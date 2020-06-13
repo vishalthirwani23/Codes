@@ -1,0 +1,39 @@
+https://www.interviewbit.com/problems/dijsktra/
+Code:
+
+vector<int> Solution::solve(int A, vector<vector<int> > &B, int C) {
+    vector<vector<pair<long long , long long >>> v(A);
+    int n=B.size();
+    for(int i=0;i<n;i++){
+        int a1=B[i][0],a2=B[i][1],a3=B[i][2];
+        v[a1].push_back({a2,a3});
+        v[a2].push_back({a1,a3});
+    }
+    vector<int> dist(A,INT_MAX);
+    set<pair<long,long>> s;
+    s.insert({0,C});
+    dist[C]=0;
+    while(!s.empty()){
+        auto x=*(s.begin());
+        s.erase(s.begin());
+        long long first=x.first;
+        long long second=x.second;
+        for(auto it:v[second]){
+            int z=first+it.second;
+            if(dist[it.first]==INT_MAX){
+                s.insert({z,it.first});
+                dist[it.first]=z;
+            }
+            else if(z<dist[it.first]){
+                s.erase(s.find({dist[it.first],it.first}));
+                s.insert({z,it.first});
+                dist[it.first]=z;
+            }
+            }
+        }
+    for(int i=0;i<A;i++){
+        if(dist[i]==INT_MAX)
+        dist[i]=-1;
+    }
+    return dist;
+}
