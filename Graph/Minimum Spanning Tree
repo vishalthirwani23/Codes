@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1
+Code:
+
+int mindist(vector<int>& dist,vector<bool>& mstset,int V){
+    int mind=INT_MAX,index;
+    for(int i=0;i<V;i++){
+        if(mstset[i]==false && dist[i]<mind)
+        mind=dist[i],index=i;
+    }
+    return index;
+}
+
+int spanningTree(int V, int E, vector<vector<int>> &graph) {
+    int ans=0;
+    vector<int> dist(V,INT_MAX);
+    vector<int> parent(V);
+    vector<bool> mstset(V);
+    parent[0]=-1;
+    dist[0]=0;
+    for(int i=1;i<=V;i++){
+        int x=mindist(dist,mstset,V);
+        mstset[x]=true;
+        ans+=dist[x];
+        for(int j=0;j<V;j++){
+            if(mstset[j]==false  && graph[x][j]<dist[j])
+            dist[j]=graph[x][j];
+        }
+    }
+    return ans;
+}
