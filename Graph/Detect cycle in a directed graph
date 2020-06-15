@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1
+Code:
+
+bool iscycle(int i,vector<int> adj[],vector<bool>& visited,vector<bool>& v){
+    
+    visited[i]=true;
+    v[i]=true;
+    if(adj[i].empty()){
+        v[i]=false;
+        return 0;
+    }
+    
+    for(int x=0;x<adj[i].size();x++){
+        if(!visited[adj[i][x]] && iscycle(adj[i][x],adj,visited,v)) return 1;
+        if(v[adj[i][x]]) return 1;
+    }
+    v[i]=false;
+    return 0;
+}
+
+bool isCyclic(int V, vector<int> adj[])
+{   
+    vector<bool> visited(V,false);
+    vector<bool> v(V,false);
+    
+    for(int i=0;i<V;i++){
+        if(!visited[i] && iscycle(i,adj,visited,v)) return 1;
+    }
+    return 0;
+    
+}
