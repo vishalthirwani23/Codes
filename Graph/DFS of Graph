@@ -1,0 +1,17 @@
+https://practice.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1/
+Code:
+
+void dfsUtil(vector<int>&  ans,vector<bool>& visited,vector<int> g[],int x){
+    visited[x]=true;
+    ans.push_back(x);
+    for(int i=0;i<g[x].size();i++)
+    if(!visited[g[x][i]]) dfsUtil(ans,visited,g,g[x][i]);
+}
+
+vector <int> dfs(vector<int> g[], int N)
+{
+    vector<int>  ans;
+    vector<bool> visited(N);
+    dfsUtil(ans,visited,g,0);
+    return ans;
+}
