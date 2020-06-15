@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/bfs-traversal-of-graph/1
+Code:
+
+vector <int> bfs(vector<int> g[], int N) {
+     vector<int> ans;
+     vector<bool> visited(N);
+     queue<int> q;
+     q.push(0);
+      visited[0]=true;
+     while(q.empty()==false){
+         int x=q.front();
+         q.pop();
+         ans.push_back(x);
+         
+         for(int i=0;i<g[x].size();i++){
+         if(!visited[g[x][i]]){ 
+         q.push(g[x][i]);
+         visited[g[x][i]]=true;
+         }
+         }
+     }
+     return ans;
+   
+}
