@@ -1,0 +1,33 @@
+https://www.interviewbit.com/problems/next-greater-number-bst/
+Code:
+
+TreeNode* search(TreeNode* A, int B){
+    if(A->val==B) return A;
+    if(A->val>B) return search(A->left,B);
+    return search(A->right,B);
+    
+}
+TreeNode* Solution::getSuccessor(TreeNode* A, int B) {
+   
+    TreeNode *temp1=NULL,*temp2=A;
+    temp1=search(A,B);
+    if(temp1->right){
+        temp1=temp1->right;
+        while(temp1->left) temp1=temp1->left;
+        return temp1;
+    }
+    
+    else{
+        temp1=NULL;
+    while(temp2->val!=B){
+       if(temp2->val>B){
+           temp1=temp2;
+           temp2=temp2->left;
+       }
+       else{
+           temp2=temp2->right;
+       }
+    }
+    return temp1;
+    }
+}
