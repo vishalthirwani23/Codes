@@ -1,0 +1,27 @@
+https://leetcode.com/problems/subarrays-with-k-different-integers/
+Code:
+
+class Solution {
+public:
+    int subarraysWithKDistinct(vector<int>& A, int K) {
+        int ans=0,i=0,j=0,x=0,n=A.size(),prefix=0;
+        map<int,int> m;
+        while(j<n){
+          if(m[A[j]]++ == 0) x++;
+            if(x>K){ 
+                x--;
+                --m[A[i++]];
+                prefix=0;
+            }
+            while(m[A[i]]>1){
+                --m[A[i++]];
+                prefix++;
+            }
+            if(x==K) ans+=prefix+1;
+            j++;
+        }
+        return ans;
+    }
+};
+
+
