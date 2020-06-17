@@ -1,0 +1,24 @@
+https://leetcode.com/problems/find-median-from-data-stream/
+Code:
+
+class MedianFinder {
+    vector<int> v;
+public:
+    
+    MedianFinder() {
+        
+    }
+   
+    void addNum(int num) {
+        if(v.empty())  v.push_back(num);
+        else
+            v.insert(lower_bound(v.begin(),v.end(),num),num);
+    }
+    
+    double findMedian() {
+        if(v.size()&1)
+            return v[v.size()/2];
+            return  (v[v.size()/2] +  v[v.size()/2-1] )*1.0/2;
+    }
+};
+
