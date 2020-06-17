@@ -1,6 +1,7 @@
 https://leetcode.com/problems/find-median-from-data-stream/
 Code:
 
+Method 1:
 class MedianFinder {
     vector<int> v;
 public:
@@ -21,4 +22,7 @@ public:
             return  (v[v.size()/2] +  v[v.size()/2-1] )*1.0/2;
     }
 };
+
+Method 2:
+
 
