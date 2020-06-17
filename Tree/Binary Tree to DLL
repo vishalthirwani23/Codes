@@ -1,0 +1,24 @@
+https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1
+Code:
+
+Node * bToDLL(Node *root)
+{
+   
+    if(root==NULL) return NULL;
+    
+    if(root->left){
+        Node *left=bToDLL(root->left);
+        while(left->right) left=left->right;
+        left->right=root;
+        root->left=left;
+    }
+    
+     if(root->right){
+        Node *right=bToDLL(root->right);
+        root->right=right;
+        right->left=root;
+    }
+    while(root->left) root=root->left;
+    return root;
+    
+}
