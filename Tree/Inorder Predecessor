@@ -1,0 +1,19 @@
+https://practice.geeksforgeeks.org/problems/predecessor-and-successor/1
+Code:
+
+Node * inOrderPredecessor(Node *root,int key)
+{
+    if(root==NULL) return NULL;
+    if(root->key>=key)
+    return inOrderPredecessor(root->left,key);
+    
+    if(root->key<key){
+        Node   *temp1=inOrderPredecessor(root->right,key);
+        return temp1==NULL?root:temp1;
+    }
+}
+
+void findPre(Node* root, Node*& pre, int key)
+{
+    pre = inOrderPredecessor(root,key);
+}
