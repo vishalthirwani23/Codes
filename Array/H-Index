@@ -1,0 +1,31 @@
+https://leetcode.com/problems/h-index/
+Code:
+
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        if(citations.empty()) return 0;
+        int n=citations.size();
+        vector<int> v(n+1,0);
+        for(int i=0;i<n;i++){
+            if(citations[i]<n)
+                v[citations[i]]++;
+            else
+                v[n]++;
+        }
+        int ans=v[n];
+        for(int i=n-1;i>=0;i--){
+            if(v[i]==0) ;
+            else if(ans+v[i]<=i){
+                ans+=v[i];
+                
+            }
+            else{
+                if(ans>i-1)
+                    return ans;
+                return i;
+            }
+        }
+        return ans;
+    }
+};
