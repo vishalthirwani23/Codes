@@ -1,0 +1,45 @@
+https://leetcode.com/problems/binary-tree-postorder-traversal/
+Code:
+
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> s;
+        TreeNode *temp=root;
+       
+        while(s.empty()==false || temp!=NULL){
+            if(temp!=NULL){
+                s.push(temp);
+                temp=temp->left;
+            }
+            else{
+             temp=s.top()->right;
+                
+                if(temp==NULL){
+                    temp=s.top();
+                    ans.push_back(temp->val);
+                    s.pop();
+                    while(!s.empty() && s.top()->right==temp){
+                        temp=s.top();
+                        ans.push_back(temp->val);
+                        s.pop();
+                    }
+                    if(!s.empty()){
+                        temp=s.top()->right;
+                    }
+                    else
+                        temp=NULL;
+                }    
+                     
+            }
+            
+        }
+        return ans;
+    }
+};
+
+
+
+
