@@ -1,0 +1,34 @@
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+Code:
+
+class Solution {
+public:
+    map<Node*,Node*> m;
+    
+    Node* connect(Node* root) {
+        if(root==NULL) return NULL;
+        Node *prev=root,*curr;
+        while(prev){
+            curr=prev;
+            while(curr && curr->left){
+                curr->left->next=curr->right;
+                if(curr->next){
+                curr->right->next=curr->next->left;
+                    
+                    }
+                curr=curr->next;
+            }
+            prev=prev->left;
+        }
+        return root;
+    }
+};
+
+
+
+
+
+
+
+
+ 
