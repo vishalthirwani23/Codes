@@ -1,0 +1,39 @@
+https://leetcode.com/problems/diameter-of-binary-tree/
+Code:
+
+class Solution {
+public:
+    class pair{
+        public:
+        int height,diameter;
+       
+        pair(int height,int diameter){
+            this->height=height;
+            this->diameter=diameter;
+        }
+    };
+    int height(TreeNode* root){
+        if(root==NULL) return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
+    pair diameterOfBinaryTreeUtil(TreeNode* root) {
+        if(root==NULL){
+            pair obj(0,0);
+            
+            return obj;
+                      }
+        pair leftpair=diameterOfBinaryTreeUtil(root->left);
+        pair rightpair=diameterOfBinaryTreeUtil(root->right);
+       
+        int height=1+max(leftpair.height,rightpair.height);
+     int diameter=max({leftpair.height+rightpair.height,leftpair.diameter,rightpair.diameter});
+         pair currpair(height,diameter);
+       
+        
+        return currpair;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        return diameterOfBinaryTreeUtil(root).diameter;
+    }
+};
+
