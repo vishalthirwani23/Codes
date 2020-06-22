@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1
+Code:
+
+vector <int> bottomView(Node *root)
+{
+    vector<int> ans;
+     if(root==NULL) return ans;
+   map<int,int> m;
+    queue<pair<Node*,int>> q;
+    q.push({root,0});
+   while(!q.empty()){
+       pair<Node*,int> a=q.front();
+       q.pop();
+       int hd=a.second;
+        m[hd]=a.first->data;
+       if(a.first->left){
+           q.push({a.first->left,hd-1});
+       }
+       if(a.first->right){
+            q.push({a.first->right,hd+1});
+       }
+   }    
+   for(auto it:m)
+     ans.push_back(it.second);
+     return ans;
+}
