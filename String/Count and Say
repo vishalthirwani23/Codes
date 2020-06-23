@@ -1,0 +1,31 @@
+https://leetcode.com/problems/count-and-say/
+Code:
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        int p;
+    p=n-1;
+    string s;
+    s="1";
+    while(p--){
+        string s1;
+        int j=0;
+        while(j<s.length()){
+            int fre=1;
+         while(j<s.length()-1 && s[j]==s[j+1]){
+         j++;fre++;
+         }
+         s1+=to_string(fre);
+         s1+=s[j];
+         j++;
+        }
+        s=s1;
+    }
+return s;
+    }
+};
+
+
+ 
+    
