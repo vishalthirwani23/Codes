@@ -1,0 +1,45 @@
+https://practice.geeksforgeeks.org/problems/array-to-bst/0
+Code:
+
+#include<bits/stdc++.h>
+using namespace std;
+struct TreeNode{
+  int val;
+  TreeNode *left,*right;
+  TreeNode(int x){
+      val = x;
+      left=right=NULL;
+  }
+};
+TreeNode* create_bst(int *a,int start, int end){
+    if(start>end) return NULL;
+    if(start==end) return new TreeNode(a[start]);
+    TreeNode *root=new TreeNode(a[start+(end-start)/2]);
+    root->right= create_bst(a,start+(end-start)/2+1,end);
+    root->left=  create_bst(a,start,start+(end-start)/2-1);
+    return root;
+}
+void inorder(TreeNode* root){
+    if(root==NULL) return ;
+    cout<<root->val<<" ";
+    inorder(root->left);
+    
+    inorder(root->right);
+    
+}
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n;
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++)
+	cin>>a[i];
+	TreeNode *root=create_bst(a,0,n-1);
+	inorder(root);
+	cout<<"\n";
+	}
+	return 0;
+}
