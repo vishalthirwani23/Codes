@@ -1,0 +1,16 @@
+https://leetcode.com/problems/jump-game/
+Code:
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n=nums.size();
+        int pos=n-1,i=n-2;
+        while(i>=0){
+            if(i+nums[i]>=pos)
+                pos=i;
+            i--;
+        }
+        return pos==0;
+    }
+};
