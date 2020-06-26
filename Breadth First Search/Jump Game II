@@ -1,0 +1,24 @@
+https://leetcode.com/problems/jump-game-ii/
+Code:
+
+//In the question it is given that we can surely reach the end, but if it is not guarenteed then also this code works and return -1 in case we cannot reach the end by making any number of moves.
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+     int n=nums.size(),start=0,end=0,max_end=0,ans=0;   
+      
+       while(end<n-1){
+        ans++;
+           
+           for(int i=start;i<=end;i++){
+               max_end=max(max_end,i+nums[i]);
+               if(max_end>=n-1) return ans;
+           }
+           if(max_end==end) return -1;
+           start=end+1;
+           end=max_end;
+        }
+        return 0;
+    }
+};
+
