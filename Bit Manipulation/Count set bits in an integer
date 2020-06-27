@@ -1,0 +1,44 @@
+https://practice.geeksforgeeks.org/problems/set-bits/0
+Code:
+
+Method 1: Time Complexity O(32) or O(logn) or O(64)
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n;
+	cin>>n;
+	int ans=0;
+	while(n){
+	    ans+=(n%2);
+	    n/=2;
+	}
+	cout<<ans<<"\n";
+	}
+	return 0;
+}
+
+Method 2: Time Complexity O(number of set bits)
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n;
+	cin>>n;
+	int ans=0;
+	while(n){
+	    ans++;
+	    n=n&(n-1);
+	}
+	cout<<ans<<"\n";
+	}
+	return 0;
+}
+
+Method 3:
