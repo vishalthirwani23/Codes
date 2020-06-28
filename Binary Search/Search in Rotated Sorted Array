@@ -16,10 +16,7 @@ public:
         
     }
     int find(vector<int>& v,int s,int e){
-      
-        while(s<=e){
-        if(s==e)
-            return s;
+        while(s<e){
         int mid=s+(e-s)/2;
         if(v[mid]>v[mid+1])
             return mid;
@@ -28,7 +25,7 @@ public:
         else
             s=mid+1;
         }
-        return -1;
+        return s;
     }
     int binsearch(vector<int>& v,int x,int s,int e){
         while(s<=e){
