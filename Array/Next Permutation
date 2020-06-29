@@ -1,0 +1,38 @@
+https://practice.geeksforgeeks.org/problems/next-permutation/0
+Code:
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n;
+	cin>>n;
+	vector<int> a(n);
+	for(int i=0;i<n;i++)
+	cin>>a[i];
+	int i=n-2;
+	while(i>=0 && a[i]>=a[i+1]) i--;
+	if(i==-1){
+	    sort(a.begin(),a.end());
+	    for(int i=0;i<n;i++)
+	        cout<<a[i]<<" ";
+	}
+	else{
+	    int index=i+1,j;
+	    for(j=i+2;j<n;j++){
+	        if(a[j]>a[i] && a[j]<a[index]){
+	            index=j;
+	        }
+	    }
+	    swap(a[i],a[index]);
+	    sort(a.begin()+i+1,a.end());
+	    for(int i=0;i<n;i++)
+	        cout<<a[i]<<" ";
+	}
+	cout<<"\n";
+	}
+	return 0;
+}
