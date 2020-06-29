@@ -1,0 +1,24 @@
+https://www.interviewbit.com/problems/kth-permutation-sequence/
+Code:
+
+long long fact(int x){
+    if(x>12) return INT_MAX;
+    if(x<=1) return 1;
+    vector<long long> dp(x+1);
+    dp[0]=dp[1]=1;
+    for(int i=2;i<=x;i++) dp[i]=dp[i-1]*i;
+    return dp[x];
+} 
+string Solution::getPermutation(int A, int B) {
+    string ans;
+    vector<string> s(A);
+    for(int i=1;i<=A;i++) s[i-1]=to_string(i);
+    while(A){
+        int temp=(B-1)/fact(A-1);
+        ans+=s[temp];
+        s.erase(s.begin()+temp);
+        B-=temp*fact(A-1);
+        A--;
+    }
+    return ans;
+}
