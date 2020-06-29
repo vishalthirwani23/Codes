@@ -1,0 +1,30 @@
+https://www.interviewbit.com/problems/subsets-ii/
+Code:
+
+#include<algorithm>
+void backtrack(vector<vector<int>>& ans,int first,vector<int>& temp,vector<int>& A,int n){
+    ans.push_back(temp);
+    for(int i=first;i<n;i++){
+        temp.push_back(A[i]);
+        backtrack(ans,i+1,temp,A,n);
+        temp.pop_back();
+        while(i<n-1 && A[i]==A[i+1]) i++;
+    }
+}
+
+vector<vector<int> > Solution::subsetsWithDup(vector<int> &A) {
+    if(A.empty()) return {{}};
+    int n=A.size();
+    sort(A.begin(),A.end());
+    vector<vector<int>> ans;
+    vector<int> temp;
+    backtrack(ans,0,temp,A,n);
+    return ans;
+}
+
+
+
+
+
+
+
