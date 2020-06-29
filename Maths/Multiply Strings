@@ -1,0 +1,28 @@
+https://leetcode.com/problems/multiply-strings/
+Code:
+
+Method 1: 
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if(num1=="0" || num2=="0") return "0";
+        int n2=num2.length(),n1=num1.length();
+        vector<int> res(n1+n2);
+        for(int i=n2-1;i>=0;i--){
+            for(int j=n1-1;j>=0;j--){
+                int p1=i+j,p2=i+j+1,mul=(num1[j]-'0')*(num2[i]-'0');
+                int sum=mul+res[p2];
+                res[p1]+=sum/10;
+                res[p2]=sum%10;
+            }
+        }
+        
+        string ans;
+        int j=0;
+        while(res[j]==0) j++;
+        
+        while(j<n1+n2)
+            ans+=to_string(res[j++]);
+        return ans;
+    }
+};
