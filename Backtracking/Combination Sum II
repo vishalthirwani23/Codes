@@ -1,0 +1,33 @@
+https://leetcode.com/problems/combination-sum-ii/
+Code:
+
+class Solution {
+public:
+          void combinationSumUtil(vector<vector<int>>& ans,vector<int>& temp,int start,vector<int>& candidates, int target){
+    if(target<0) return ;
+    if(target==0){
+        ans.push_back(temp);
+        return ;
+    }
+    int n=candidates.size();
+    for(int i=start;i<n;i++){
+         temp.push_back(candidates[i]);
+         
+         combinationSumUtil(ans,temp,i+1,candidates,target-candidates[i]);
+         while(i<n-1 && candidates[i]==candidates[i+1]) i++;
+         temp.pop_back();
+    }
+    
+}
+    
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+  
+        sort(candidates.begin(),candidates.end());
+       
+        vector<vector<int> > ans;
+        vector<int> temp;
+        combinationSumUtil(ans,temp,0,candidates,target);
+        return ans;
+    
+    }
+};
