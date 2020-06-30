@@ -1,0 +1,29 @@
+https://leetcode.com/problems/n-queens-ii/
+Code:
+
+class Solution {
+public:
+    
+    void count(int r,int n,int& ans,vector<int>& col,vector<int>& d1,vector<int>& d2){
+        if(r==n){
+            ans++;
+            return ;
+        }
+        for(int c=0;c<n;c++){
+            int diag1=n-1+r-c,diag2=r+c;
+            if(col[c] || d1[diag1] || d2[diag2])
+                continue;
+            col[c]= d1[diag1]=d2[diag2]=1;
+            
+            count(r+1,n,ans,col,d1,d2);
+             
+            col[c]= d1[diag1]=d2[diag2]=0;
+        }
+    }
+    int totalNQueens(int n) {
+        int ans=0;
+        vector<int> col(n),d1(2*n-1),d2(2*n-1);
+        count(0,n,ans,col,d1,d2);
+        return ans;
+    }
+};
