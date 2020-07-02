@@ -1,39 +1,24 @@
-https://www.interviewbit.com/problems/merge-two-sorted-lists/
+https://leetcode.com/problems/merge-two-sorted-lists/
 Code:
 
-ListNode* Solution::mergeTwoLists(ListNode* A, ListNode* B) {
-    if(A==NULL) return B;
-    if(B==NULL) return A;
-    ListNode *temp,*ans;
-    if(A->val<B->val) {
-        temp=A;
-        A=A->next;
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *p1=l1,*p2=l2,*temp,*dummy=new ListNode();
+        temp=dummy;                                                
+        while(p1 && p2){
+            if(p1->val<p2->val){
+              temp->next=p1;  
+              p1=p1->next;
+        } 
+            else{
+             temp->next=p2;   
+             p2=p2->next;
+            }
+             temp=temp->next;
+        }
+        temp->next=(p1==NULL?p2:p1);                                       
+                                                         
+        return dummy->next;
     }
-    else {
-         temp=B;
-         B=B->next;
-    }
-    ans=temp;
-    while(A && B){
-        if(A->val<B->val) {
-        temp->next=A;
-        A=A->next;
-    }
-    else {
-         temp->next=B;
-         B=B->next;
-    }
-    temp=temp->next;
-    }
-    while(A){
-        temp->next=A;
-        A=A->next;
-        temp=temp->next;
-    }
-    while(B){
-        temp->next=B;
-        B=B->next;
-        temp=temp->next;
-    }
-    return ans;
-}
+};
