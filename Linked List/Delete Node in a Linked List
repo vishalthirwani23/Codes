@@ -1,0 +1,14 @@
+https://leetcode.com/problems/delete-node-in-a-linked-list/
+Code:
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        
+        ListNode *next=node->next;
+        node->val=node->next->val;
+        node->next=node->next->next;
+        delete next;
+        
+    }
+};
