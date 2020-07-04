@@ -1,16 +1,38 @@
-https://www.interviewbit.com/problems/reverse-link-list-recursion/
+https://leetcode.com/problems/reverse-linked-list/
 Code:
 
-ListNode* reverseListutil(ListNode* curr,ListNode* prev){
-     if(curr==NULL) return prev;
-     ListNode *next=curr->next;
-     curr->next=prev;
-     prev=curr;
-     curr=next;
-     return reverseListutil(curr,prev);
-}
-ListNode* Solution::reverseList(ListNode* A) {
-    if(A==NULL || A->next==NULL) return A;
-    ListNode *curr=A,*prev=NULL;
-    return reverseListutil(curr,prev);
-}
+Method 1: Iterative
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode *curr,*prev,*nxt;
+        curr=head;prev=NULL;
+        while(curr!=NULL){
+            nxt= curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+        return prev;
+    }
+};
+
+Method 2: Recursive
+class Solution {
+public:
+    
+    ListNode* reverseListrec(ListNode* cur,ListNode* prev){
+       
+        if(cur==NULL) {
+            return prev;
+        }
+        ListNode* next=cur->next;
+        cur->next=prev;
+        
+       return reverseListrec(next,cur);
+        
+    }
+    ListNode* reverseList(ListNode* head) {
+         return reverseListrec(head,NULL);
+    }
+};
