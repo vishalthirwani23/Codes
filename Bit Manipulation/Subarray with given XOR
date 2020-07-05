@@ -1,0 +1,14 @@
+https://www.interviewbit.com/problems/subarray-with-given-xor/
+Code:
+
+int Solution::solve(vector<int> &A, int B) {
+    int ans=0,x=0;
+    map<int,int> m;
+    m[0]++;
+    for(int i=0;i<A.size();i++){
+        x^=A[i];
+        ans+=m[x^B];
+        m[x]++;
+    }
+    return ans;
+}
