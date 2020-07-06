@@ -1,0 +1,8 @@
+a and b are greater than 0, if one of them is zero then we return the other number
+Time Complexity: log(min(a,b))
+int gcd(int a, int b) 
+{ 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
