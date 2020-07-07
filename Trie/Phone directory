@@ -1,0 +1,57 @@
+https://practice.geeksforgeeks.org/problems/phone-directory/0
+Code:
+
+#include<bits/stdc++.h>
+using namespace std;
+struct TrieNode{
+    map<char,TrieNode*> m;
+    bool isend;
+};
+void insert(TrieNode *root,string s){
+    TrieNode *it=root;
+    for(int i=0;i<s.length();i++){
+        if(it->m[s[i]]==NULL) it->m[s[i]]=new TrieNode();
+        it=it->m[s[i]];
+    }
+    it->isend=true;
+}
+void dfs(string prefix,TrieNode *curnode){
+    if(curnode->isend==true) cout<<prefix<<" ";
+    for(auto it:curnode->m){
+        dfs(prefix+it.first,it.second);
+    }
+}
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int n,j;
+	cin>>n;
+    vector<string> v(n);
+    string query;
+	for(int i=0;i<n;i++)
+	cin>>v[i];
+	cin>>query;
+	TrieNode *root=new TrieNode();
+	for(int i=0;i<n;i++){
+	    insert(root,v[i]);
+	}
+	TrieNode *prevnode=root,*curnode;
+	string prefix;
+	for(j=0;j<query.length();j++){
+	    prefix+=query[j];
+	    curnode=prevnode->m[prefix[j]];
+	    if(curnode==NULL) break;
+	    else{
+	        dfs(prefix,curnode);
+	        cout<<"\n";
+	        prevnode=curnode;
+	    }
+	    
+	}
+	for(int i=j;i<query.length();i++)
+	cout<<"0\n";
+	}
+	return 0;
+}
