@@ -1,38 +1,27 @@
-https://practice.geeksforgeeks.org/problems/next-permutation/0
+https://leetcode.com/problems/next-permutation/
 Code:
 
-#include<bits/stdc++.h>
-using namespace std;
-int main()
- {
-	int t;
-	cin>>t;
-	while(t--){
-	int n;
-	cin>>n;
-	vector<int> a(n);
-	for(int i=0;i<n;i++)
-	cin>>a[i];
-	int i=n-2;
-	while(i>=0 && a[i]>=a[i+1]) i--;
-	if(i==-1){
-	    sort(a.begin(),a.end());
-	    for(int i=0;i<n;i++)
-	        cout<<a[i]<<" ";
-	}
-	else{
-	    int index=i+1,j;
-	    for(j=i+2;j<n;j++){
-	        if(a[j]>a[i] && a[j]<a[index]){
-	            index=j;
-	        }
-	    }
-	    swap(a[i],a[index]);
-	    sort(a.begin()+i+1,a.end());
-	    for(int i=0;i<n;i++)
-	        cout<<a[i]<<" ";
-	}
-	cout<<"\n";
-	}
-	return 0;
-}
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        int i=nums.size()-2;
+        while(i>=0){
+            if(nums[i]>=nums[i+1])
+                i--;
+            else
+                break;
+        }
+        if(i>=0){
+           int j=i+2,k=i+1;
+            while(j<nums.size()){
+                if(nums[i]<nums[j] && nums[j]<=nums[k])
+                    k=j;
+                j++;
+            }
+            swap(nums[i],nums[k]);
+        }
+        reverse(nums.begin()+i+1,nums.end());
+    }
+};
