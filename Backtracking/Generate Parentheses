@@ -1,0 +1,23 @@
+https://leetcode.com/problems/generate-parentheses/
+Code:
+
+class Solution {
+public:
+    void helper(int n,vector<string>& ans,int open, int close, int len,string temp){
+        if(len==2*n){
+            ans.push_back(temp);
+            return ;
+        }
+        if(open<n){
+            helper(n,ans,open+1,close,len+1,temp+"(");
+        }
+        if(open>close){
+             helper(n,ans,open,close+1,len+1,temp+")");
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        helper(n,ans,0,0,0,"");
+        return ans;
+    }
+};
