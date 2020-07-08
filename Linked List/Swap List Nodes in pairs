@@ -1,20 +1,35 @@
-https://www.interviewbit.com/problems/swap-list-nodes-in-pairs/
+Swap Nodes in Pairs
 Code:
 
-ListNode* Solution::swapPairs(ListNode* A) {
-    if(A==NULL || A->next==NULL) return A;
-    ListNode *first=A,*second=A->next,*ans=second;
-    while(first && second){
-        ListNode *temp=second->next;
-        second->next=first;
-        if(temp==NULL || temp->next==NULL)
-        first->next=temp;
-        else
-            first->next=temp->next;
-        
-        first=temp;
-        if(temp) second=temp->next;
-        else second=NULL;
+Iterative Solution:
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(head==NULL || head->next==NULL) return head;
+        ListNode *temp=head,*ans=head->next;
+        while(temp && temp->next){
+            ListNode *temp2=temp->next->next;
+            temp->next->next=temp;
+            temp->next=temp2?(temp2->next?temp2->next:temp2):NULL;
+                temp=temp2;
+            }
+        return ans;
     }
-    return ans;
-}
+};
+
+Recursive Solution:
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        
+        if(head==NULL)       return head;
+        if(head->next==NULL) return head;
+        
+        ListNode *next = head->next;
+        head->next     = swapPairs(next->next);
+        next->next     = head;
+        return next;
+        
+    }
+};
+
