@@ -6,7 +6,7 @@ public:
     int maxProfit(int k, vector<int>& prices) {
         ios_base::sync_with_stdio(false);
         cin.tie(0);
-    unsigned int n=prices.size();
+        int n=prices.size();
         if(n<=1 || k==0)
             return 0;
         if(k>=n/2){
