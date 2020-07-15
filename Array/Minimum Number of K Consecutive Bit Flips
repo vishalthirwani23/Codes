@@ -1,0 +1,25 @@
+https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
+Code:
+
+class Solution {
+public:
+    int minKBitFlips(vector<int>& A, int K) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        if(A.empty()) return 0;
+        int n=A.size(),nintervals=0,ans=0;
+        vector<bool> needClose(n,false);
+        for(int i=0;i<n;i++){
+            if(needClose[i]) nintervals--;
+            if( (A[i]==0 && nintervals%2==0)||
+                (A[i]==1 && nintervals%2==1)
+              ){
+                if(i+K>n) return -1;
+                ans++;
+                nintervals++;
+                if(i+K<n) needClose[i+K]=true;
+            }  
+        }
+        return ans;
+    }
+};
