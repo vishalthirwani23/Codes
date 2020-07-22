@@ -4,11 +4,9 @@ Code:
 class Solution {
 public:
     int longestOnes(vector<int>& A, int K) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
         int n=A.size(),ans=0,lo=0,hi,zeros=0;
          if (K >= n) return n;
-        for(int hi=0;hi<n;hi++){
+        for(hi=0;hi<n;hi++){
             zeros+=(A[hi]^1);
             if(zeros>K) zeros-=(A[lo++]==0);
             
