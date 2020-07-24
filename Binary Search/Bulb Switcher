@@ -1,0 +1,23 @@
+https://leetcode.com/problems/bulb-switcher/
+Code:
+
+class Solution {
+public:
+    int bulbSwitch(int n) {
+        if(n==0) return 0;
+        int lo=1,hi=n,ans;
+        while(lo<=hi){
+            int mid=lo + (hi-lo)/2;
+            if(n/mid==mid) return mid;
+            if(n/mid<mid){
+                hi=mid-1;
+            }
+            else{
+                ans=mid;
+                lo=mid+1;
+            }
+                
+        }
+        return ans;
+    }
+};
