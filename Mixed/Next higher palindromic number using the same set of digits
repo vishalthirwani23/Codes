@@ -1,0 +1,44 @@
+https://practice.geeksforgeeks.org/problems/next-higher-palindromic-number-using-the-same-set-of-digits/0
+Code:
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	string s;
+	cin>>s;
+	int n=s.length();
+	if(n<=3)
+	 cout<<"-1\n";
+	else{
+	    int mid=n/2-1,j;
+	    for(j=mid-1;j>=0;j--){
+	        if(s[j]<s[j+1])
+	        break;
+	    }
+	    if(j==-1)
+	    cout<<"-1\n";
+	    else{
+	        int i=j+1;
+	        for(int k=j+2;k<=mid;k++){
+	            if(s[k]>s[j])
+	              i=k;
+	        }
+	        swap(s[j],s[i]);
+	        swap(s[n-1-j],s[n-1-i]);
+	        reverse(s.begin()+j+1,s.begin()+mid+1);
+	        if(n%2){
+	            reverse(s.begin()+mid+2,s.begin()+n-j-1);
+	        }
+	        else{
+	             reverse(s.begin()+mid+1,s.begin()+n-j-1);
+	        }
+	        cout<<s<<"\n";
+	    }
+	}
+	}
+	return 0;
+}
