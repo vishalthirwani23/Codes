@@ -1,0 +1,35 @@
+https://leetcode.com/problems/find-the-closest-palindrome/
+Code:
+
+class Solution {
+public:
+    
+    string nearestPalindromic(string n) {
+          int no=n.size();
+          
+           vector<long long> candidates={(long long)pow(10,no-1)-1, (long long)pow(10,no-1)+1, (long long)pow(10,no)-1, (long long)pow(10,no)+1};
+           int half_size=(no+1)/2;
+           long long val=stoll(n.substr(0,half_size));
+           findotherCandidates(candidates,val,no);
+           sort(candidates.begin(),candidates.end());
+           long long diff=INT_MAX;
+           long long ans,num=stoll(n);
+        for(long long candidate:candidates){
+            if(candidate==num) continue;
+            if(llabs(candidate-num)<diff){
+                diff=llabs(candidate-num);
+                ans=candidate;
+            }
+        }
+        return to_string(ans);
+    }
+    private: void findotherCandidates(vector<long long>& candidates, long long val, int n){
+        vector<long long> values={val,val-1,val+1};
+        for(int x:values){
+          string s=to_string(x);
+            if(n%2==1) s.pop_back();
+            reverse(s.begin(),s.end());
+            candidates.push_back(stoll(to_string(x)+s));
+        }
+    }
+};
