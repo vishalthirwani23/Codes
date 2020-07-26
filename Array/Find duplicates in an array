@@ -1,0 +1,18 @@
+https://practice.geeksforgeeks.org/problems/find-duplicates-in-an-array/1
+Code:
+
+vector<int> duplicates(int a[], int n) {
+    
+    vector<int> ans;
+    
+    for(int i=0;i<n;i++){
+        a[a[i]%n]+=n;
+    }
+    
+    for(int i=0;i<n;i++){
+        if(a[i]>=2*n) ans.push_back(i);
+    }
+    
+    return ans.size()!=0? ans:{-1};
+    
+}
