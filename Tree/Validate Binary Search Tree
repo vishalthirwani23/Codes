@@ -4,28 +4,22 @@ Code:
 Recurive Approach (when duplicates are not allowed)
 class Solution {
 public:
-    int f=0,x;
+    TreeNode *prev=NULL;
     bool inorder(TreeNode *root){
         if(root==NULL) return true;
         bool y= inorder(root->left);
         if(y==false) return false;
-        if(f==0){
-            f=1;
-            x=root->val;
-        }
-        else{
-            if(root->val<=x) return false;
-            else 
-                x=root->val;
-        }
+        
+        if( prev && root->val<=prev->val) return false;
+            
+            prev=root;
+      
         bool z= inorder(root->right);
          if(z==false) return false;
          else return true; 
         
     }
     bool isValidBST(TreeNode* root) {
-        if(root==NULL || (root->left==NULL && root->right==NULL))
-            return true;
         return inorder(root);
     }
 };
@@ -50,6 +44,36 @@ public:
           return true;
      }
 };
+
+Iterative Approach (when duplicates are allowed)
+class Solution {
+public:
+    
+      bool isValidBST(TreeNode* root) {
+         stack<TreeNode*> s;
+          bool rightSide = false;
+          TreeNode *prev=NULL;
+          while(root || !s.empty()){
+              while(root){
+                  s.push(root);
+                  root=root->left;
+              }
+              root=s.top();
+              s.pop();
+              if(prev && ((rightSide && root->val<=prev->val)||(!rightSide && root->val<prev->val))) return false;
+              prev=root;
+              root=root->right;
+              rightSide = root?true:false;
+          }
+          return true;
+     }
+};
+
+
+
+
+
+
 
 
 
