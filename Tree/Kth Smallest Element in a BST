@@ -1,6 +1,7 @@
 https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 Code:
 
+Recursive Approach:
 class Solution {
 public:
      vector<int> v;
@@ -24,6 +25,9 @@ public:
         return ans;
     }
 };
+
+Iterative Approach:
+
 
 
 
