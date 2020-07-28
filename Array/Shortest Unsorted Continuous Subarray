@@ -1,7 +1,7 @@
 https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
 Code:
 
-Approach 1:Time Complexity: O(nlogn) | Space Complexity: O(n)
+Approach 1: Time Complexity: O(nlogn) | Space Complexity: O(n)
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
@@ -18,4 +18,30 @@ public:
     }
 };
 
-Approach 2:
+Approach 2: Time Complexity: O(n) | Space Complexity: O(n)
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        stack<int> s;
+        int l=nums.size(), r=0, n=nums.size();
+        for(int i=0; i<nums.size(); i++){
+            while(!s.empty() && nums[s.top()]>nums[i]){
+                l=min(l,s.top());
+                s.pop();  
+            }
+            s.push(i);
+        }
+        if(l==nums.size()) return 0;
+        while(!s.empty()) s.pop();
+        for(int i=nums.size()-1;i>=0;i--){
+            while(!s.empty() && nums[s.top()]<nums[i]){
+                    r=max(r,s.top());
+                    s.pop();
+            }
+            s.push(i);
+        }
+        return r - l > 0 ? r - l + 1 : 0;
+    }
+};
+
+Approach 3:
