@@ -5,10 +5,6 @@ bool iscycle(int i,vector<int> adj[],vector<bool>& visited,vector<bool>& v){
     
     visited[i]=true;
     v[i]=true;
-    if(adj[i].empty()){
-        v[i]=false;
-        return 0;
-    }
     
     for(int x=0;x<adj[i].size();x++){
         if(!visited[adj[i][x]] && iscycle(adj[i][x],adj,visited,v)) return 1;
