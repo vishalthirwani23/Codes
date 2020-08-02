@@ -1,0 +1,66 @@
+https://practice.geeksforgeeks.org/problems/sort-a-stack/1
+Code:
+
+Method 1: Sorting stcak using recursion | Time Complexity O(n*n)
+/*The structure of the class is
+class SortedStack{
+public:
+	stack<int> s;
+	void sort();
+};
+*/
+
+/* The below method sorts the stack s 
+you are required to complete the below method */
+void sortedinsert(int val, stack<int>& s){
+    if(s.empty() || val>=s.top())
+       s.push(val);
+    else{
+        int x=s.top();
+        s.pop();
+        sortedinsert(val, s);
+        s.push(x);
+    }   
+}
+void SortedStack :: sort()
+{
+   //Your code here
+   if(s.empty()) return ;
+   int x=s.top();
+   s.pop();
+   sort();
+   sortedinsert(x,s);
+}
+
+Method 2: Using another stack | Time Complexity O(n*n) 
+/*The structure of the class is
+class SortedStack{
+public:
+	stack<int> s;
+	void sort();
+};
+*/
+
+/* The below method sorts the stack s 
+you are required to complete the below method */
+
+void SortedStack :: sort()
+{
+   //Your code here
+   stack<int> s1;
+   while(!s.empty()){
+       int x=s.top();
+       s.pop();
+       while(!s1.empty() && s1.top()<x){
+           int y=s1.top();
+           s1.pop();
+           s.push(y);
+       }
+       s1.push(x);
+   }
+   while(!s1.empty()){
+       int z=s1.top();
+       s1.pop();
+       s.push(z);
+   }
+}
