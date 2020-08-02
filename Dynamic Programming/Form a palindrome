@@ -1,6 +1,7 @@
 https://practice.geeksforgeeks.org/problems/form-a-palindrome/0
 Code:
 
+Method 1:
 #include<bits/stdc++.h>
 using namespace std;
 int main()
@@ -23,3 +24,6 @@ int main()
 	}
 	return 0;
 }
+
+Method 2:
+
