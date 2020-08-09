@@ -1,0 +1,116 @@
+#include<bits/stdc++.h>
+using namespace std;
+class DLLNode{
+  public:
+  DLLNode *prev,*next;
+  int val;
+};
+
+class Stack{
+    public:
+    DLLNode *head,*mid;
+    int count;
+};
+
+Stack* createStack(){
+    Stack *sp=new Stack();
+    sp->count=0;
+    return sp;
+}
+
+void push(Stack *sh, int data){
+    DLLNode *new_DLLNode=new DLLNode();
+    new_DLLNode->val=data;
+    sh->count+=1;
+    new_DLLNode->prev=sh->head;
+    if(sh->head)
+    sh->head->next=new_DLLNode;
+    sh->head=new_DLLNode;
+    if(sh->count==1){
+        sh->mid=new_DLLNode;
+    }
+    
+    else if(sh->count&1==1){
+        sh->mid=sh->mid->next;
+    }
+}
+
+int pop(Stack *sp){
+    int value;
+    if(sp->count==0){
+        cout<<"stack is empty";
+        return -1;
+    }
+    sp->count--;
+    value=sp->head->val;
+    if(sp->count==0){
+        free(sp->head);
+        sp->head=NULL;
+        sp->mid=NULL;
+    }
+    else{
+        sp->head=sp->head->prev;
+        if(sp->count&1==0){
+            sp->mid=sp->mid->prev;
+        }
+    }
+    return value;
+}
+
+int findMiddle(Stack *sp){
+    if(sp->count==0){
+        cout<<"stack is empty";
+        return -1;
+    }
+    return sp->mid->val;
+}
+
+void deleteMiddle(Stack *sp){
+    if(sp->count==0){
+        cout<<"stack is empty";
+        return ;
+    }
+    if(sp->count==1){
+        free(sp->head);
+        sp->head=NULL;
+        sp->mid=NULL;
+    }
+     DLLNode *temp=sp->mid;
+    if(sp->count==2){
+       
+        sp->mid=sp->mid->next;
+        sp->mid->prev=NULL;
+        
+    }
+    else if(sp->count&1){
+        sp->mid->prev->next=sp->mid->next;
+        sp->mid->next->prev=sp->mid->prev;
+        sp->mid=sp->mid->prev;
+    }
+    else{
+        sp->mid->prev->next=sp->mid->next;
+        sp->mid->next->prev=sp->mid->prev;
+        sp->mid=sp->mid->next;
+    }
+    free(temp);
+    sp->count--;
+}
+
+int main(){
+    Stack *s=createStack();
+    push(s,4);
+    int x=findMiddle(s);
+    cout<<x<<"\n";
+    push(s,6);
+    x=findMiddle(s);
+    cout<<x<<"\n";
+    push(s,7);
+    x=findMiddle(s);
+    cout<<x<<"\n";
+    deleteMiddle(s);
+    push(s,8);
+    x=findMiddle(s);
+    cout<<x<<"\n";
+    x = pop(s);
+    cout<<x<<"\n";
+}
