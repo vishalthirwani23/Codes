@@ -14,11 +14,11 @@ public:
                 ans.push_back(temp->val);
                 temp=temp->left;
             }
-            if(s.empty()==false){
+           
                 temp=s.top();
                 s.pop();
                 temp=temp->right;
-            }
+            
         }
         return ans;
         
