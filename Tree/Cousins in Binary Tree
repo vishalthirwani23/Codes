@@ -1,0 +1,18 @@
+https://leetcode.com/problems/cousins-in-binary-tree/
+Code:
+
+class Solution {
+    pair<int, int> helper(TreeNode* node, int x, int height, int parent) {
+        if (!node) return {-1, -1};
+        if (node->val == x) return {height, parent};
+        auto left = helper(node->left, x, height + 1, node->val);
+        auto right = helper(node->right, x, height + 1, node->val);
+        return left.second != -1 ? left : right;
+    }
+    public:
+    bool isCousins(TreeNode* root, int x, int y) {
+        auto left = helper(root, x, 0, 0);
+        auto right = helper(root, y, 0, 0);
+        return left.first == right.first && left.second != right.second;
+    }
+};
