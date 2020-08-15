@@ -1,0 +1,46 @@
+https://www.hackerearth.com/practice/algorithms/graphs/shortest-path-algorithms/practice-problems/algorithm/shortest-path-revisited-9e1091ea/description/
+Code:
+
+#include<bits/stdc++.h>
+#define int long long
+#define N 100000000000000
+using namespace std;
+void upd(int v, int used, int dist, set<pair<int,pair<int,int>>>& s, int k, vector<vector<int>>& dp){
+      if(used<=k && dist<dp[v][used]){
+        s.erase({dp[v][used],{v, used}});
+        s.insert({dist,{v, used}});
+        dp[v][used]=dist;
+      }
+}
+int32_t main(){
+    int n,m,k,a,b,c;
+    cin>>n>>m>>k;
+    vector<vector<pair<int, int>>> adj(n+1);
+    while(m--){
+      cin>>a>>b>>c;
+      adj[a].push_back({b,c});
+      adj[b].push_back({a,c});
+    }
+    vector<vector<int>> dp(n+1,vector<int>(k+1,N));
+    set<pair<int,pair<int,int>>> s;
+    s.insert({0,{1,0}});
+    dp[1][0]=0;
+    while(s.size()){
+     auto p=*s.begin();
+     s.erase(s.begin());
+     int dist=p.first;
+     int from_node=p.second.first;
+     int used=p.second.second;
+     for(auto i:adj[from_node]){
+       int to_node=i.first;
+       int val=i.second;
+       upd(to_node, used, dist+val, s, k, dp);
+       upd(to_node, used+1, dist, s, k, dp);
+     }
+    }
+    for(int i=1;i<=n;i++)
+    cout<<*min_element(dp[i].begin(), dp[i].end())<<" ";
+  return 0;
+}
+
+ 
