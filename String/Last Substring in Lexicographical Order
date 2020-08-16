@@ -4,21 +4,20 @@ Code:
 class Solution {
 public:
     string lastSubstring(string s) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
        int n=s.length(),i=0,j=1,k=0;
     while(j+k<n)
     {
         if(s[i+k]==s[j+k]) k++; 
-        else if(s[i+k]>s[j+k]) j=j+k+1,k=0;
-        else i=i+k+1,k=0;
-      //  if(i>j) return "vishal";
-        if(i==j)
-            
+        else if(s[i+k]>s[j+k]) j+=k+1,k=0;
+        else i+=k+1,k=0;
+      if(i>j) swap(i,j);
+      else if(i==j)
             j++;
     }
     return s.substr(i);
     }
 };
+
+
 
 
