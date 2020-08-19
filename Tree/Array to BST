@@ -19,13 +19,11 @@ TreeNode* create_bst(int *a,int start, int end){
     root->left=  create_bst(a,start,start+(end-start)/2-1);
     return root;
 }
-void inorder(TreeNode* root){
+void preorder(TreeNode* root){
     if(root==NULL) return ;
     cout<<root->val<<" ";
-    inorder(root->left);
-    
-    inorder(root->right);
-    
+    preorder(root->left);
+    preorder(root->right);
 }
 int main()
  {
@@ -38,7 +36,7 @@ int main()
 	for(int i=0;i<n;i++)
 	cin>>a[i];
 	TreeNode *root=create_bst(a,0,n-1);
-	inorder(root);
+	preorder(root);
 	cout<<"\n";
 	}
 	return 0;
