@@ -10,7 +10,7 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         TreeNode *temp=root;
-        while(!q.empty()){
+        while(q.size()){
             ans.push_back(temp->val);
            int n=q.size();
           for(int i=1;i<=n;i++){
@@ -23,18 +23,17 @@ public:
               if(temp2->right){
                   q.push(temp2->right);
                   temp=temp2->right;
-              }
-              
+              }   
           }
-           
         }
         return ans;
     }
 };
 
-Method 2: Time Complexity: O(n) | Space Complexity: O(h) //h is height of binary Tree
+Method 2: Time Complexity: O(n) | Space Complexity: O(h) 
 class Solution {
 public:
+    vector<int> ans;
     void rightSideViewUtil(TreeNode* root,int cur_level, int& max_level){
         if(root==NULL) return ;
         if(cur_level>max_level){
@@ -49,8 +48,6 @@ public:
         rightSideViewUtil(root,cur_level,max_level);
         return ans;
     }
-    private:
-    vector<int> ans;
 };
 
 
