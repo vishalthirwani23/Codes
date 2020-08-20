@@ -3,17 +3,16 @@ Code:
 
 class Solution {
 public:
-    int maxPathSumUtil(TreeNode* root,int& res){
+    int ans=INT_MIN;
+    int helper(TreeNode* root){
         if(root==NULL) return 0;
-        int left=maxPathSumUtil(root->left,res);
-        int right=maxPathSumUtil(root->right,res);
-        int x=max({root->val,root->val+max(left,right)});
-        res=max({res,x,root->val+left+right});
-        return x;
+        int left=helper(root->left);
+        int right=helper(root->right);
+        ans=max(ans,max(left,0) + root->val + max(right,0)); 
+        return root->val +max(0,max(left,right));
     }
     int maxPathSum(TreeNode* root) {
-        int res=INT_MIN;
-        int p=maxPathSumUtil(root,res);
-        return res;
+        helper(root);
+        return ans;
     }
 };
