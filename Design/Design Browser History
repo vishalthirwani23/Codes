@@ -1,0 +1,37 @@
+https://leetcode.com/problems/design-browser-history/
+Code:
+
+class BrowserHistory {
+public:
+    class node{
+        public:
+      string url;
+      node *prev,*next;
+      node(string s){
+          url=s;
+          prev=next=NULL;
+      }  
+    };
+    node *head,*curr;
+    BrowserHistory(string homepage) {
+        head = new node(homepage);
+        curr = head;
+    }
+    void visit(string url) {
+        node *new_node = new node(url);
+        curr->next = new_node;
+        new_node->prev = curr;
+        curr = new_node;
+    }
+    string back(int steps) {
+        while(curr->prev && steps--)
+            curr=curr->prev;
+        return curr->url;
+    }
+    string forward(int steps) {
+     while(curr->next && steps--)
+            curr=curr->next;
+        return curr->url;   
+    }
+};
+
