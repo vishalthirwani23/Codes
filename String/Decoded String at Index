@@ -1,0 +1,21 @@
+https://leetcode.com/problems/decoded-string-at-index/
+Code:
+
+class Solution {
+public:
+    string decodeAtIndex(string S, int K) {
+        long long N=0,i;
+        for(i=0; N<K; i++)
+            N = isalpha(S[i]) ? N+1 : N*(S[i]-'0');
+        while(i--){
+            if(isalpha(S[i])){
+                if(K%N--==0)
+                    return string(1,S[i]);
+            }
+            else{
+                N/=(S[i]-'0'), K%=N;
+            }
+        }
+        return "vishal";
+    }
+};
