@@ -1,0 +1,39 @@
+https://leetcode.com/problems/snakes-and-ladders/
+Code:
+
+class Solution {
+public:
+    int snakesAndLadders(vector<vector<int>>& board) {
+     int n=board.size(),flag=1,steps=0;
+        queue<int> q;
+        q.push(1);
+        vector<bool> visited(n*n+1,false);
+        visited[1]=true;
+        while(q.size()){
+            
+            int x=q.size();
+            while(x--){
+                
+                int curr=q.front();
+                if(curr==n*n)
+                    return steps;
+            q.pop();
+            for(int to=curr+1;to<=min(curr+6,n*n);to++){
+                int row=(to-1)/n,col=(to-1)%n;
+                if(row%2)
+                    col=n-1-col;
+                row=n-1-row;
+                int dest=(board[row][col]!=-1?board[row][col]:to);
+                
+                if(visited[dest]==false){
+                    visited[dest]=true;
+                    q.push(dest);
+                }
+                
+            }
+            }
+            steps++;
+        }
+        return -1;
+    }
+};
