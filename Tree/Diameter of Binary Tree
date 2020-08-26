@@ -3,37 +3,23 @@ Code:
 
 class Solution {
 public:
-    class pair{
-        public:
-        int height,diameter;
-       
-        pair(int height,int diameter){
-            this->height=height;
-            this->diameter=diameter;
-        }
-    };
-    int height(TreeNode* root){
+    int ans=0;
+    int helper(TreeNode* root){
         if(root==NULL) return 0;
-        return 1+max(height(root->left),height(root->right));
-    }
-    pair diameterOfBinaryTreeUtil(TreeNode* root) {
-        if(root==NULL){
-            pair obj(0,0);
-            
-            return obj;
-                      }
-        pair leftpair=diameterOfBinaryTreeUtil(root->left);
-        pair rightpair=diameterOfBinaryTreeUtil(root->right);
-       
-        int height=1+max(leftpair.height,rightpair.height);
-     int diameter=max({leftpair.height+rightpair.height,leftpair.diameter,rightpair.diameter});
-         pair currpair(height,diameter);
-       
-        
-        return currpair;
+        int left=helper(root->left);
+        int right=helper(root->right);
+        int leftMax=0,rightMax=0;
+        if(root->left){
+            leftMax=1+left;
+        }
+        if(root->right){
+            rightMax=1+right;
+        }
+        ans=max(ans,leftMax+rightMax);
+        return max(leftMax,rightMax);
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        return diameterOfBinaryTreeUtil(root).diameter;
+        helper(root);
+        return ans;
     }
 };
-
