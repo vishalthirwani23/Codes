@@ -1,0 +1,25 @@
+https://leetcode.com/problems/minimum-window-substring/
+Code:
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int head=0,start=0,end=0,counter=t.length(),d=INT_MAX;
+        vector<int> m(128,0);
+        for(int i=0;i<t.length();i++)
+            m[t[i]]++;
+        while(end<s.length()){
+            if(m[s[end]]-->0)  counter--;
+            while(counter==0){
+                    if(end-start+1<d)
+                        d=end-(head=start)+1;
+                    if(m[s[start]]++==0){
+                        counter++;
+                    }
+                    start++;
+                }
+            end++;
+        }
+        return d==INT_MAX?"":s.substr(head,d);
+    }
+};
