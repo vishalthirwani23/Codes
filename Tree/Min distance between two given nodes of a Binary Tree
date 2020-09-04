@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/min-distance-between-two-given-nodes-of-a-binary-tree/1
+Code:
+
+Node* find_lca(Node* root, int a, int b){
+    if(root==NULL || root->data==a || root->data==b) return root;
+    Node* left=find_lca(root->left,a,b);
+    Node* right=find_lca(root->right,a,b);
+    if(left!=NULL && right!=NULL) return root;
+    if(left==NULL && right==NULL) return NULL;
+    return left==NULL?right:left;
+}   
+
+int find_distance(Node* root, int a,int ans){
+    if(root==NULL) return -1;
+    if(root->data==a) return ans;
+    int left=find_distance(root->left,a,ans+1);
+    if(left!=-1) return left;
+    int right=find_distance(root->right,a,ans+1);
+    return right;
+}
+
+int findDist(Node* root, int a, int b) {
+    // Your code here
+    int d1=-1,d2=-1;
+    Node *lca=find_lca(root,a,b);
+    d1=find_distance(lca,a,0);
+    d2=find_distance(lca,b,0);
+    if(d1==-1 || d2==-1) return -1;
+    return d1+d2;
+}
