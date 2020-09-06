@@ -1,0 +1,40 @@
+https://practice.geeksforgeeks.org/problems/maximum-sum-rectangle/0
+Code:
+
+#include<bits/stdc++.h>
+#define int long long
+using namespace std;
+ 
+int32_t main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int m,n,ans=INT_MIN;
+	cin>>m>>n;
+	vector<vector<int>> a(m,vector<int>(n));
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++){
+            cin>>a[i][j];
+        }
+    }
+	for(int i=0;i<n;i++){
+	    vector<int> v(m,0);
+	    	for(int j=i;j<n;j++){
+	    	    
+	    	    for(int k=0;k<m;k++){
+	    	        v[k]+=a[k][j];
+	    	    }
+	    	    int temp_ans=INT_MIN,b=0;
+	    	    for(int k=0;k<m;k++){
+	    	        b+=v[k];
+	    	        temp_ans=max(b,temp_ans);
+	    	        b=max(0LL,b);
+	    	    }
+	    	    ans=max(ans,temp_ans);
+	    	}
+	}
+	cout<<ans<<"\n";
+	}
+	return 0;
+}
