@@ -4,20 +4,24 @@ Code:
 class Solution {
 public:
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head==NULL) return NULL;
-        ListNode *tail=head,*newhead=head;
-        int len=1;
-        while(tail->next){
+        if(head==NULL || head->next==NULL) return head;
+        ListNode *temp=head,*last,*ans;
+        int len=0;
+        while(temp){
+            last=temp;
             len++;
-            tail=tail->next;
+            temp=temp->next;
         }
         k%=len;
-        if(k){
-            tail->next=head;
-            for(int i=0;i<len-k;i++) tail=tail->next;
-            newhead=tail->next;
-            tail->next=NULL;
+        if(k==0) return head;
+        int val=len-k-1;
+        temp=head;
+        while(val--){
+            temp=temp->next;
         }
-        return newhead;
+        ans=temp->next;
+        temp->next=NULL;
+        last->next=head;
+        return ans;
     }
 };
