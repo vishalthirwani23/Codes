@@ -1,0 +1,24 @@
+https://leetcode.com/problems/numbers-at-most-n-given-digit-set/
+Code:
+
+class Solution {
+public:
+    int atMostNGivenDigitSet(vector<string>& digits, int n) {
+        string ns=to_string(n);
+        int ans=0, len=ns.length(), d=digits.size();
+        for(int i=1; i<len; i++){
+            ans += pow(d, i);
+        }
+        for(int i=0; i<len; i++){
+            bool is_same=false;
+            for(string s: digits){
+                if(s[0] < ns[i])
+                    ans += pow(d, len-1-i);
+                else if(s[0] == ns[i])
+                    is_same=true;
+            }
+            if(!is_same) return ans;
+        }
+        return ans+1;
+    }
+};
