@@ -1,0 +1,31 @@
+https://www.interviewbit.com/problems/subarray-with-equal-occurences/
+Code:
+
+int Solution::solve(vector<int> &A, int B, int C) {
+    int n = A.size(), ans, x = 0;
+    vector<int> count_b(n, 0), count_c(n, 0);
+    unordered_map<int, int> diff;
+    for(int i = 0; i < n; i++){
+        if(A[i] == B) count_b[i] = 1;
+        if(A[i] == C) count_c[i] = 1;
+        if(i != 0){
+            count_b[i] += count_b[i - 1];
+            count_c[i] += count_c[i - 1];
+        }
+    }
+    for(int i = 0; i < n; i++){
+        diff[count_b[i] - count_c[i]]++;
+    }
+    ans = diff[0];
+    for(int i = 1; i < n; i++){
+        diff[count_b[i] - count_c[i]]--;
+        if(A[i - 1] == B){
+            x++;
+        }
+        if(A[i - 1] == C){
+            x--;
+        }
+        ans += diff[x];
+    }
+    return ans;   
+}
