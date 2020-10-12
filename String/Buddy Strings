@@ -1,0 +1,26 @@
+https://leetcode.com/problems/buddy-strings/
+Code:
+
+class Solution {
+public:
+    bool buddyStrings(string A, string B) {
+        if(A.length() != B.length()) return false;
+        int count = 0, n = A.length(), f = 0;
+        string str1, str2;
+        vector<int> v(26, 0);
+        for(int i = 0; i < n; i++){
+            v[A[i] -'a']++;
+            if(v[A[i]-'a'] == 2)
+                f = 1;
+            if(A[i] != B[i]){
+              count++;                                                 
+              str1 += A[i];
+              str2 += B[i];  
+            }
+        }
+        if((count == 0 && f) || (count == 2 && str1[0] == str2[1] && str1[1] == str2[0])){
+            return true;
+        }
+        return false;
+    }
+};
