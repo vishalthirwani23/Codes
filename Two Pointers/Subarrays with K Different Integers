@@ -1,0 +1,27 @@
+https://leetcode.com/problems/subarrays-with-k-different-integers/
+Code:
+
+class Solution {
+public:
+    int atMost(vector<int>& A, int K){
+        int ans = 0, i = 0, j = 0, x = 0, n = A.size();
+        unordered_map<int,int> cnt;
+        while(j < n){
+          if(cnt[A[j]]++ == 0) x++;
+            if(x <= K){ 
+                ans += j - i + 1;
+            }
+            else if(x == K + 1){
+                while(--cnt[A[i++]]) ;
+                x--;
+                ans += j - i + 1;
+            }  
+            j++;
+        }
+        return ans;
+    }
+    int subarraysWithKDistinct(vector<int>& A, int K) {
+        return atMost(A, K) - atMost(A, K - 1);
+    }
+};
+
