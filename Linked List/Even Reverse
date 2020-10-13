@@ -1,0 +1,23 @@
+https://www.interviewbit.com/problems/even-reverse/
+Code:
+
+ListNode* Solution::solve(ListNode* A) {
+    vector<int> v;
+    ListNode* temp = A;
+    int f = 1, index;
+    while(temp){
+        if(f%2 == 0)
+        v.push_back(temp->val);
+        f++;
+        temp = temp->next;
+    }
+    index = v.size() - 1;
+    temp = A;
+    f = 1;
+    while(temp){
+        if(f%2 == 0) temp->val = v[index--];
+        f++;
+        temp = temp->next;
+    }
+    return A;
+}
