@@ -1,0 +1,16 @@
+https://www.interviewbit.com/problems/valid-bst-from-preorder/
+Code:
+
+int helper(vector<int> &A, int& index, int lower, int upper){
+    if(index >= A.size()) return 1;
+    int val = A[index];
+    if(val < lower || val > upper) return 0;
+    helper(A, ++index, lower, val);
+    return helper(A, index, val + 1, upper);
+}
+
+int Solution::solve(vector<int> &A) {
+    if(A.size() <= 2) return 1;
+    int  index = 0;
+    return helper(A, index, INT_MIN, INT_MAX);
+}
