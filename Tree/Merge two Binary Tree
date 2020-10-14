@@ -1,0 +1,11 @@
+https://www.interviewbit.com/problems/merge-two-binary-tree/
+Code:
+
+TreeNode* Solution::solve(TreeNode* A, TreeNode* B) {
+    if(A == NULL) return B;
+    if(B == NULL) return A;
+    TreeNode* root = new TreeNode(A->val + B->val);
+    root->left = solve(A->left, B->left);
+    root->right = solve(A->right, B->right);
+    return root;
+}
