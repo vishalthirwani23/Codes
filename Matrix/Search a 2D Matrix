@@ -1,0 +1,39 @@
+https://leetcode.com/problems/search-a-2d-matrix/
+Code:
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.empty()) return false;
+        int m = matrix.size(), n = matrix[0].size(), low_row = 0, high_row = m-1, low_col = 0, high_col = n-1, mid;
+        
+        while(low_row < high_row){
+            mid = low_row + (high_row - low_row) / 2;
+            if(matrix[mid][0] == target)
+                return true;
+            if(matrix[mid][0] < target){
+                if(matrix[mid][n-1] >= target)
+                    low_row = high_row = mid;
+                else
+                    low_row = mid + 1;
+            }
+            else{
+                high_row = mid - 1;
+            }
+        }
+        
+        while(low_col <= high_col){
+            mid = low_col + (high_col - low_col) / 2;
+            if(matrix[low_row][mid] == target)
+                return true;
+            if(matrix[low_row][mid] < target){
+                low_col = mid + 1;
+            }
+            else{
+                high_col = mid - 1;
+            }
+        }
+        
+        return false;
+    }
+};
