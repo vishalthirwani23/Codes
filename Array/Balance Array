@@ -1,0 +1,30 @@
+https://www.interviewbit.com/problems/balance-array/
+Code:
+
+int Solution::solve(vector<int> &A) {
+    long long n = A.size(), even = 0, odd = 0, ans = 0;
+    vector<pair<long long, long long>> later(n), prev(n);
+    
+    for(int i = n-1; i >=0; i--){
+        later[i].first = even;
+        later[i].second = odd;
+        if(i%2 == 0) even += A[i];
+        else odd += A[i];
+    }
+    
+    even = 0;
+    odd = 0;
+    for(int i = 0; i < n; i++){
+        prev[i].first = even;
+        prev[i].second = odd;
+        if(i%2 == 0) even += A[i];
+        else odd += A[i];
+    }
+    
+    for(int i = 0; i < n; i++){
+        if(prev[i].first + later[i].second == prev[i].second + later[i].first)
+        ans ++;
+    }
+    
+    return ans;
+}
