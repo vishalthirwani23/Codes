@@ -1,0 +1,26 @@
+https://www.interviewbit.com/problems/pick-from-both-sides/
+Code:
+
+int Solution::solve(vector<int> &A, int B) {
+    int n = A.size(), ans;
+    vector<int> front(n), back(n);
+    for(int i = 0; i < n; i++){
+        front[i] = A[i];
+        if(i > 0)
+        front[i] += front[i-1];
+    }
+    
+    for(int i = n-1; i >= 0; i--){
+        back[i] = A[i];
+        if(i < n-1)
+        back[i] += back[i+1];
+    }
+    
+    ans = front[B-1];
+    for(int i = B - 1; i >= 1; i--){
+        ans = max(ans, front[i-1] + back[n-B+i]);
+    }
+    ans = max(ans, back[n - B]);
+    
+    return ans;
+}
