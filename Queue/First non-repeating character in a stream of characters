@@ -1,0 +1,33 @@
+https://www.interviewbit.com/problems/first-non-repeating-character-in-a-stream-of-characters/
+Code:
+
+#include<list>
+string Solution::solve(string A) {
+    list<char> l;
+    int n = A.length();
+    string ans;
+    unordered_map<char, int> m;
+    
+    for(int i = 0; i < n; i++){
+        m[A[i]]++;
+        if(m[A[i]] == 1)
+        l.push_back(A[i]);
+        if(l.empty()){
+            ans += '#';
+        }
+        else{
+            if(m[l.front()] == 1)
+            ans += l.front();
+            else{
+                while(!l.empty() && m[l.front()] >1)
+                l.erase(l.begin());
+                if(l.empty())
+                ans += '#';
+                else
+                ans += l.front();
+            }
+        }
+    }
+    
+    return ans;
+} 
