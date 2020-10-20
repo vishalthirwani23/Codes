@@ -1,0 +1,25 @@
+https://leetcode.com/problems/clone-graph/
+Code:
+
+class Solution {
+public:
+    void dfs(Node* node, unordered_map<Node*, Node*>& m, unordered_map<Node*, bool>& visited){
+        if(node){
+            if(visited[node] == true) return ;
+            visited[node] = true;
+            m[node] = new Node(node->val);
+            for(Node* n : node->neighbors){
+                dfs(n, m, visited);
+                m[node]->neighbors.push_back(m[n]);
+            }
+        }
+    }
+    Node* cloneGraph(Node* node) {
+        if(node == NULL) return NULL;
+        unordered_map<Node*, Node*> m;
+        unordered_map<Node*, bool> visited;
+        
+        dfs(node, m, visited);
+        return m[node];
+    }
+};
