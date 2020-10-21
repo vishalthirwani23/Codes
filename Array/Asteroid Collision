@@ -1,0 +1,35 @@
+https://leetcode.com/problems/asteroid-collision/
+Code:
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        vector<int> ans;
+        int n = asteroids.size();
+        
+        for(int i = 0; i < n; i++){
+            if(ans.empty() || asteroids[i] > 0)
+                ans.push_back(asteroids[i]);
+            else{
+                bool flag = true;
+                while(ans.empty() == false && ans.back() > 0){
+                    if(ans.back() == -asteroids[i]){
+                        ans.pop_back();
+                        flag = false;
+                        break;
+                    }
+                    else if(ans.back() < -asteroids[i])
+                        ans.pop_back();
+                    else{
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag)
+                    ans.push_back(asteroids[i]);
+            }
+        }
+        
+        return ans;
+    }
+};
