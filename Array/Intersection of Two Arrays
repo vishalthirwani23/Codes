@@ -1,0 +1,30 @@
+https://leetcode.com/problems/intersection-of-two-arrays/
+Code:
+
+Approach 1: Time Complexity O(N1logN1 + N2logN2) | Space Complexity O(1)
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans;
+        int N1 = nums1.size(), N2 = nums2.size(), i = 0, j = 0;
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        while(i < N1 && j < N2){
+            if(nums1[i] == nums2[j]){
+                ans.push_back(nums1[i]);
+                i++;
+                j++;
+                while(i < N1 && nums1[i] == nums1[i-1]) i++;
+                while(j < N2 && nums2[j] == nums2[j-1]) j++;
+            }
+            else if(nums1[i] < nums2[j]){
+                while(i < N1 && nums1[i] < nums2[j]) i++;
+            }
+            else
+                while(j < N2 && nums2[j] < nums1[i]) j++;
+        }
+        return ans;
+    }
+};
+
+Approach 2: 
