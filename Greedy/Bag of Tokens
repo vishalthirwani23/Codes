@@ -1,0 +1,38 @@
+https://leetcode.com/problems/bag-of-tokens/
+Code:
+
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int P) {
+        if(tokens.empty()) return 0;
+        int n = tokens.size(), index, ans = 0, start, end;
+        sort(tokens.begin(), tokens.end());
+        vector<int> pref_sum(n);
+        pref_sum[0] = tokens[0];
+        for(int i = 1; i < n; i++){
+            pref_sum[i] = pref_sum[i - 1] + tokens[i];
+        }
+        index = upper_bound(pref_sum.begin(), pref_sum.end(), P) - pref_sum.begin();
+        if(index == n) return n;
+        if(index == 0) return 0;
+        if(index > 0){
+            ans += index;
+            P -= pref_sum[index - 1];
+        }
+        start = index;
+        end = n-1;
+        while(start <= end){
+            if(P >= tokens[start]){
+                P -= tokens[start];
+                ans++;
+                start++;
+            }
+            else{
+                 P += tokens[end] - tokens[start];
+                 start++;
+                 end--;
+            }
+        }
+        return ans;
+    }
+};
