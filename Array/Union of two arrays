@@ -1,0 +1,56 @@
+https://practice.geeksforgeeks.org/problems/union-of-two-arrays/0#
+Code:
+
+Approach 1: Time Complexity O(mlogm + nlogn) | Space Complexity O(1) 
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+ {
+	int t;
+	cin>>t;
+	while(t--){
+	int m,n, i = 0, j = 0, ans = 0;
+	cin>>m>>n;
+	vector<int> input1(m), input2(n);
+	for(int i = 0; i < m; i++)
+	cin>>input1[i];
+	for(int i = 0; i < n; i++)
+	cin>>input2[i];
+	sort(input1.begin(), input1.end());
+	sort(input2.begin(), input2.end());
+	while(i < m && j < n){
+	    if(input1[i] == input2[j]){
+	        ans++;
+	        i++;
+	        j++;
+	        while(i < m && input1[i] == input1[i - 1]) i++;
+	        while(j < n && input2[j] == input2[j - 1]) j++;
+	    }
+	    else if(input1[i] < input2[j]){
+	        ans++;
+	        i++;
+	        while(i < m && input1[i] == input1[i - 1]) i++;
+	    }
+	    else{
+	        ans++;
+	        j++;
+	        while(j < n && input2[j] == input2[j - 1]) j++;
+	    }
+	}
+	while(i < m){
+	    ans++;
+	        i++;
+	        while(i < m && input1[i] == input1[i - 1]) i++;
+	}
+	while(j < n){
+	    ans++;
+	    j++;
+	    while(j < n && input2[j] == input2[j - 1]) j++;
+	}
+	cout<<ans<<"\n";
+	}
+	return 0;
+}
+
+Approach 2:
+Follow up:
