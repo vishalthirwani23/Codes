@@ -1,0 +1,26 @@
+https://leetcode.com/problems/recover-binary-search-tree/
+Code:
+
+Approach 1: Time Complexity O(n) | Space Complexity O(h)
+class Solution {
+public:
+    TreeNode *first=NULL,*second=NULL,*prev=NULL;
+    void recoverTree(TreeNode* root) {
+        inorder(root);
+        int temp = first->val;
+        first->val = second->val;
+        second->val = temp;
+    }
+    void inorder(TreeNode* root){
+     if(root == NULL) return ;
+      inorder(root->left);
+        if(first==NULL && prev!=NULL && root->val<prev->val)
+            first=prev;
+        if(first!=NULL && root->val<prev->val)
+            second=root;
+        prev = root;
+      inorder(root->right);
+    }
+};
+
+Approach 2:
