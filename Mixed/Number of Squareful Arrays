@@ -1,0 +1,37 @@
+https://leetcode.com/problems/number-of-squareful-arrays/
+Code:
+
+Time Complexity O(N!) | Space Complexity O(N*N)
+class Solution {
+public:
+    int res = 0;
+    unordered_map<int, int> cnt;
+    unordered_map<int, unordered_set<int>> p;
+    int numSquarefulPerms(vector<int>& A) {
+        int n = A.size();
+        for(int &a : A){
+            cnt[a]++;
+        }
+        for(int &i : A){
+            for(int &j : A){
+                int x=sqrt(i+j);
+                if(x * x == i + j ){
+                        p[i].insert(j);
+                }
+            }
+        }
+        for(auto &i : cnt){
+            dfs(i.first, n - 1);
+        }
+        return res;
+    }
+    void dfs(int val, int ptr){
+        if(ptr == 0) res++;
+        cnt[val]--;
+        for(int x : p[val]){
+            if(cnt[x]>0)
+            dfs(x, ptr - 1);
+        }
+        cnt[val]++;
+    }
+};
