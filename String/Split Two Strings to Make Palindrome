@@ -1,0 +1,36 @@
+https://leetcode.com/problems/split-two-strings-to-make-palindrome/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(1) // N is the length of each string
+class Solution {
+public:
+    
+    bool isPalindrome(string& str, int start, int end){
+        while(start < end && str[start] == str[end]){
+            start++;
+            end--;
+        }
+        return start >= end;
+    }
+    
+    bool checkPalindromeFormation(string a, string b) {
+               return check(a, b) || check(b, a);  
+    }
+    
+    bool check(string& a, string& b){
+        int start = 0, end = a.length() - 1;
+        while(start < end && a[start] == b[end]){
+            start++;
+            end--;
+        }
+        return isPalindrome(a, start, end) || isPalindrome(b, start, end);
+    }
+    
+};
+
+
+
+
+
+
+ 
