@@ -1,0 +1,23 @@
+https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(h)
+class Solution {
+public:
+    int ans = 0;
+    void helper(int Min, int Max, TreeNode* root){
+        ans = max({ans, abs(root->val - Min), abs(root->val - Max)});
+        if(root->left)
+        helper(min(Min, root->val), max(Max, root->val), root->left);
+        if(root->right)
+        helper(min(Min, root->val), max(Max, root->val), root->right);
+        return ;
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        if(root->left)
+        helper(root->val, root->val, root->left);
+        if(root->right)
+        helper(root->val, root->val, root->right);
+        return ans;
+    }
+};
