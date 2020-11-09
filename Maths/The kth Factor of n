@@ -1,0 +1,23 @@
+https://leetcode.com/problems/the-kth-factor-of-n/
+Code:
+
+Time Complexity - O(sqrt(N)) | Space Complexity - O(1)
+class Solution {
+public:
+    int kthFactor(int n, int k) {
+        int num = 0, i;
+        for(i = 1; i * i <= n; i++){
+            if(n % i == 0){
+                k--;
+                if(k == 0) return i;
+            }
+        }
+        for(i = i - 1; i >= 1; i--){
+            if(n % i == 0 && n / i != i){
+                k--;
+                if(k == 0) return n / i;
+            }
+        }
+        return -1;
+    }
+};
