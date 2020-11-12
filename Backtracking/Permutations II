@@ -1,0 +1,31 @@
+https://leetcode.com/problems/permutations-ii/
+Code:
+
+Time Complexity - O(N!) | Spaec Complexity - O(N)
+class Solution {
+public:
+    void backtrack(vector<int>& nums, vector<vector<int>>& ans, vector<int>& temp, vector<bool>& visited, int start, int n){
+        if(start == n){
+            ans.push_back(temp);
+            return ;
+        }
+        for(int i = 0; i < n; i++){
+            if(visited[i] == true) continue;
+            if(i > 0 && nums[i] == nums[i - 1] && visited[i-1] == false) continue;
+            temp.push_back(nums[i]);
+            visited[i] = true;
+            backtrack(nums, ans, temp, visited, start + 1, n);
+            temp.pop_back();
+            visited[i] = false;
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+       sort(nums.begin(), nums.end()); 
+       int n = nums.size(); 
+       vector<vector<int>> ans;
+       vector<int> temp; 
+       vector<bool> visited(n, false); 
+       backtrack(nums, ans, temp, visited, 0, n);
+       return ans; 
+    }
+};
