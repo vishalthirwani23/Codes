@@ -1,0 +1,22 @@
+https://leetcode.com/problems/squares-of-a-sorted-array/
+Code:
+
+Time Complexity : O(n) | Space Complexity : O(1)
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+        int n = A.size(), start = 0, end = n - 1, index = n - 1;
+        vector<int> ans(n);
+        while(start <= end){
+               if(abs(A[start]) > abs(A[end])){
+                ans[index--] = A[start] * A[start++];
+               }
+               else{
+                ans[index--] = A[end] * A[end--];   
+               }
+        }
+        return ans;
+    }
+};
+
+ 
