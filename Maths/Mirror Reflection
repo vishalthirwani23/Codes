@@ -1,0 +1,20 @@
+https://leetcode.com/problems/mirror-reflection/
+Code:
+
+class Solution {
+public:
+    int mirrorReflection(int p, int q) {
+        int m = q, n = p, gcd = __gcd(m, n);
+        m /= gcd;
+        n /= gcd;
+        if(m % 2 == 1 && n % 2 == 1){
+            return 1;
+        }
+        else if(m % 2 == 1){
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+};
