@@ -4,21 +4,22 @@ Code:
 class Solution {
 public:
     int atMostNGivenDigitSet(vector<string>& digits, int n) {
-        string ns=to_string(n);
-        int ans=0, len=ns.length(), d=digits.size();
-        for(int i=1; i<len; i++){
-            ans += pow(d, i);
+        string n_string = to_string(n);
+        int ans = 0, num = 1, len = n_string.length(), d = digits.size();
+        for(int i = 1; i < len; i++){
+            num *= d;
+            ans += num;
         }
-        for(int i=0; i<len; i++){
-            bool is_same=false;
-            for(string s: digits){
-                if(s[0] < ns[i])
-                    ans += pow(d, len-1-i);
-                else if(s[0] == ns[i])
-                    is_same=true;
+        for(int i = 0; i < len; i++){
+            bool is_same = false;
+            for(string digit : digits){
+                if(digit[0] < n_string[i])
+                    ans += pow(d, len - 1 - i);
+                else if(digit[0] == n_string[i])
+                    is_same = true;
             }
-            if(!is_same) return ans;
+             if(is_same == false) return ans;   
         }
-        return ans+1;
+        return ans + 1;
     }
 };
