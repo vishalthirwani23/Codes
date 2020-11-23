@@ -1,0 +1,17 @@
+https://leetcode.com/problems/house-robber-iii/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(H)
+class Solution {
+public:    
+    pair<int, int> helper(TreeNode* root){
+        if(root == NULL) return {0, 0};
+        pair<int, int> left_pair = helper(root->left);
+        pair<int, int> right_pair = helper(root->right);
+        return {max(left_pair.second,left_pair.first) + max(right_pair.second,right_pair.first), root->val + left_pair.first + right_pair.first};
+    }
+    int rob(TreeNode* root) {
+        pair<int, int> ans = helper(root);
+        return max(ans.first, ans.second);
+    }
+};
