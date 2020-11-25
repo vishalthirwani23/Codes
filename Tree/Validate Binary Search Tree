@@ -4,45 +4,40 @@ Code:
 Recurive Approach (when duplicates are not allowed)
 class Solution {
 public:
-    TreeNode *prev=NULL;
-    bool inorder(TreeNode *root){
-        if(root==NULL) return true;
-        bool y= inorder(root->left);
-        if(y==false) return false;
-        
-        if( prev && root->val<=prev->val) return false;
-            
-            prev=root;
-      
-        bool z= inorder(root->right);
-         if(z==false) return false;
-         else return true; 
-        
+    TreeNode *prev = NULL;
+    bool helper(TreeNode* root){
+        if(root == NULL) return true;
+        bool flag = helper(root->left); 
+        if(flag == false) return false;
+        if(prev != NULL && root->val <= prev->val) return false;
+        prev = root;
+        return helper(root->right);
     }
     bool isValidBST(TreeNode* root) {
-        return inorder(root);
+        return helper(root);
     }
 };
 
 Iterative Approach (when duplicates are not allowed)
 class Solution {
 public:
-      bool isValidBST(TreeNode* root) {
-          stack<TreeNode*> s;
-          TreeNode *prev=NULL;
-          while(root || !s.empty()){
-              while(root){
-                  s.push(root);
-                  root=root->left;
-              }
-              root=s.top();
-              s.pop();
-              if(prev &&  root->val<=prev->val) return false;
-              prev=root;
-              root=root->right;
-          }
-          return true;
-     }
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL) return true;
+        TreeNode *prev = NULL;
+        stack<TreeNode*> nodes;
+        while(nodes.empty() == false || root != NULL){
+            while(root != NULL){
+                nodes.push(root);
+                root = root->left;
+            }
+            root = nodes.top();
+            nodes.pop();
+            if(prev && root->val <= prev->val) return false;
+            prev = root;
+            root = root->right;
+        }
+        return true;
+    }
 };
 
 Iterative Approach (when duplicates are allowed)
