@@ -1,0 +1,16 @@
+https://leetcode.com/problems/smallest-integer-divisible-by-k/
+Code:
+
+Time Complexity - O(K) | Space Complexity - O(1)
+class Solution {
+public:
+    int smallestRepunitDivByK(int K) {
+        int i, mod = 0;
+        for(i = 1; i <= K; i++){
+            mod = (10 * mod + 1) % K;
+            if(mod == 0) break;
+        }
+        if(i == K + 1) return -1;
+        return i;
+    }
+};
