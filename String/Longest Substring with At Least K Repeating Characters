@@ -1,0 +1,31 @@
+https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(1)
+class Solution {
+public:
+    int longestSubstring(string s, int k) {
+        int ans = 0, count, n = s.length(), unique;
+        for(int i = 1; i <= 26; i++){
+            unique = 0;
+            vector<int> freq(26, 0);
+            int start = 0, end = 0;
+            count = 0;
+            while(end < n){
+                freq[s[end] - 'a']++;
+                if(freq[s[end] - 'a'] == 1) unique++;
+                if(freq[s[end] - 'a'] == k) count++;
+                while(unique > i){
+                    freq[s[start] - 'a']--;
+                    if(freq[s[start]-'a'] == 0) unique--;
+                    if(freq[s[start] - 'a'] == k - 1) count--;
+                    start++;
+                }
+                    if(unique == i && count == i)
+                    ans = max(ans, end - start + 1);
+                end++;
+            }
+        }
+        return ans;
+    }
+};
