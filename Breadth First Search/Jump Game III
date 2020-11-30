@@ -4,30 +4,27 @@ Code:
 class Solution {
 public:
     bool canReach(vector<int>& arr, int start) {
-        int n=arr.size();
-        vector<bool> visited(n);
+        int n = arr.size(), index, index1, index2;
+        vector<bool> visited(n, false);
         queue<int> q;
         q.push(start);
-        visited[start]=true;
-        if(arr[start]==0) return true;
-        
-        while(!q.empty()){
-            int i=q.front();
+        visited[start] = true;
+        while(q.empty() == false){
+            index = q.front();
+            index1 = index + arr[index];
+            index2 = index - arr[index];
             q.pop();
-            if(i+arr[i]<n && visited[i+arr[i]]==false){
-                if(arr[i+arr[i]]==0) return true;
-                q.push(i+arr[i]);
-                visited[i+arr[i]]=true;
-                
+            if(index1 < n && arr[index1] == 0) return true;
+            if(index2 >= 0 && arr[index2] == 0) return true;
+            if(index1 < n && visited[index1] == false){
+                visited[index1] = true;
+                q.push(index1);
             }
-            if(i-arr[i]>=0 && visited[i-arr[i]]==false){
-                if(arr[i-arr[i]]==0) return true;
-                q.push(i-arr[i]);
-                visited[i-arr[i]]=true;
-                
+            if(index2 >= 0 && visited[index2] == false){
+                visited[index2] = true;
+                q.push(index2);
             }
         }
-        
         return false;
     }
 };
