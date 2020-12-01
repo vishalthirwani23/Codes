@@ -1,0 +1,32 @@
+https://leetcode.com/problems/the-skyline-problem/
+Code :
+
+Time Complexity - O(NlogN) | Space Complexity - O(N)
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<vector<int>> ans, coords;
+        int n = buildings.size(), prev = 0, cur;
+        if(n == 0) return ans;
+        for(int i = 0; i < n; i++){
+            coords.push_back({buildings[i][0], -buildings[i][2]});
+            coords.push_back({buildings[i][1], buildings[i][2]});
+        }
+        sort(coords.begin(), coords.end());
+        multiset<int> heights{0};
+        for(vector<int> coord : coords){
+            if(coord[1] < 0) heights.insert(-coord[1]);
+            else heights.erase(heights.find(coord[1]));
+            
+            cur = *heights.rbegin();
+            if(prev != cur){
+                ans.push_back({coord[0], cur});
+                prev = cur;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
