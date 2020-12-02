@@ -1,10 +1,8 @@
 https://leetcode.com/problems/linked-list-random-node/
 Code:
 
-
+Time Complexity - O(N) | Space Complexity - O(1)
 class Solution {
-    private:
-    vector<int> v;
 public:
     /** @param head The linked list's head.
         Note that the head is guaranteed to be not null, so it contains at least one node. */
@@ -15,20 +13,17 @@ public:
     
     /** Returns a random node's value. */
     int getRandom() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-        ListNode *temp=Head;
-        int res,len=1;
-        while(temp){
-            if(rand()%len==0)
-                res=temp->val;
+        ListNode* temp = Head;
+        int res, len = 1;
+        while(temp != NULL){
+            if(rand() % len == 0)
+                res = temp->val;
             len++;
-            temp=temp->next;
+            temp = temp->next;
         }
         return res;
     }
 };
-
 /**
  * Your Solution object will be instantiated and called as such:
  * Solution* obj = new Solution(head);
