@@ -1,0 +1,30 @@
+https://leetcode.com/problems/count-number-of-nice-subarrays/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(1)
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        int n = nums.size(), start = 0, end = 0, ans = 0;
+        int cnt = 0, last = 0;
+        while(end < n){
+            if(nums[end] % 2 == 1){
+                cnt++;
+                if(cnt == k){
+                    last= 0;
+                    while(cnt == k){
+                        ans++;
+                        last++;
+                        if(nums[start] %2 == 1) cnt--;    
+                        start++;
+                    }
+                }    
+            }
+            else{
+                ans += last;
+            }
+            end++;
+        }
+        return ans;
+    }
+};
