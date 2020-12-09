@@ -1,26 +1,48 @@
 https://leetcode.com/problems/binary-search-tree-iterator/
 Code:
 
+Time Complexity - theta(1) | Space Complexity - O(N)
 class BSTIterator {
 public:
-    queue<TreeNode*> q;
+    queue<int> values;
     BSTIterator(TreeNode* root) {
         inorder(root);
     }
-    void inorder(TreeNode *root){
-      if(!root) return ;
+    void inorder(TreeNode* root) {
+      if(root == NULL) return ;
       inorder(root->left);
-      q.push(root);
+      values.push(root->val);
       inorder(root->right);  
     }
-    /** @return the next smallest number */
     int next() {
-        TreeNode *temp=q.front();
-        q.pop();
-        return temp->val;
+        int value = values.front();
+        values.pop();
+        return value;
     }
-    /** @return whether we have a next smallest number */
     bool hasNext() {
-        return q.size()>0;
+         return values.size() > 0;
+    }
+};
+
+Time Complexity - theta(1) | Space Complexity - O(H)
+class BSTIterator {
+public:
+    stack<TreeNode*> nodes;
+    BSTIterator(TreeNode* root) {
+        inorder(root);
+    }
+    void inorder(TreeNode* root) {
+      if(root == NULL) return ;
+      nodes.push(root); 
+      inorder(root->left);  
+    }
+    int next() {
+        TreeNode* node = nodes.top();
+        nodes.pop();
+        inorder(node->right);
+        return node->val;
+    }
+    bool hasNext() {
+         return nodes.size() > 0;
     }
 };
