@@ -1,0 +1,14 @@
+https://leetcode.com/problems/valid-mountain-array/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(1)
+class Solution {
+public:
+    bool validMountainArray(vector<int>& arr) {
+        int n = arr.size(), left = 0, right = n - 1;
+        while(left + 1 < n  && arr[left] < arr[left + 1]) left++;
+        while(right - 1 >= 0 && arr[right - 1] > arr[right]) right--;
+        if(left == right && left > 0 && left < n - 1) return true;
+        return false;
+    }
+};
