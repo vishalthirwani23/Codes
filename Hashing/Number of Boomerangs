@@ -1,0 +1,23 @@
+https://leetcode.com/problems/number-of-boomerangs/
+Code:
+
+Time Complexity - O(N*N) | Space Complexity - O(N)
+class Solution {
+public:
+    int dist(vector<int>& point1, vector<int>& point2){
+        return (point1[0]-point2[0])*(point1[0]-point2[0]) + (point1[1]-point2[1])*(point1[1]-point2[1]);
+    }
+    int numberOfBoomerangs(vector<vector<int>>& points) {
+        int ans = 0, n = points.size();
+        unordered_map<int,int> m;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                    m[dist(points[i],points[j])]++;
+            }
+            for(pair<int,int> p : m)
+                ans += p.second*(p.second-1);
+            m.clear();
+        }
+        return ans;
+    }
+};
