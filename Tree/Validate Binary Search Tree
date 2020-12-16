@@ -22,22 +22,21 @@ Iterative Approach (when duplicates are not allowed)
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
-        if(root == NULL) return true;
-        TreeNode *prev = NULL;
-        stack<TreeNode*> nodes;
-        while(nodes.empty() == false || root != NULL){
-            while(root != NULL){
-                nodes.push(root);
+        stack<TreeNode*> s;
+        TreeNode *prev=NULL;
+        while(root || !s.empty()){
+            while(root){
+                s.push(root);
                 root = root->left;
             }
-            root = nodes.top();
-            nodes.pop();
+            root = s.top();
+            s.pop();
             if(prev && root->val <= prev->val) return false;
             prev = root;
             root = root->right;
-        }
-        return true;
-    }
+          }
+          return true;
+     }
 };
 
 Iterative Approach (when duplicates are allowed)
