@@ -1,0 +1,23 @@
+https://leetcode.com/problems/4sum-ii/
+Code :
+
+Time Complexity - O(N*N) | Space Complexity - O(N*N)
+class Solution {
+public:
+    int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {
+        int n = A.size(), ans = 0;
+        unordered_map<int, int> count;
+        
+        for (int& num1 : A) {
+            for (int& num2 : B) {
+                count[num1 + num2]++;
+            }
+        }
+        for (int& num1 : C) {
+            for (int& num2 : D) {
+                ans += count[-(num1 + num2)];
+            }
+        }
+        return ans;
+    }
+};
