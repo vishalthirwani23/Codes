@@ -1,21 +1,33 @@
 https://leetcode.com/problems/decoded-string-at-index/
 Code:
 
+Time Complexity - O(N) | Space Complexity - O(1)
 class Solution {
 public:
     string decodeAtIndex(string S, int K) {
-        long long N=0,i;
-        for(i=0; N<K; i++)
-            N = isalpha(S[i]) ? N+1 : N*(S[i]-'0');
-        while(i--){
-            if(isalpha(S[i])){
-                if(K%N--==0)
-                    return string(1,S[i]);
-            }
-            else{
-                N/=(S[i]-'0'), K%=N;
-            }
+        long long n = S.length(), val = 0, i;
+        
+        for (i = 0; i < n; i++) {
+            char c = S[i];
+            if(isdigit(c)) val *= (c - '0');
+            else val++;
+            if(val >= K) break;
         }
-        return "vishal";
+        
+        while (i >= 0) {
+            char c = S[i];
+            if (isdigit(S[i])) {
+                val /= (c - '0');
+                K %= val;
+                if (K == 0) K = val; 
+            }
+            else {
+                if(val == K) return S.substr(i, 1);
+                val--;
+            }
+            i--;
+        }
+        
+        return "";
     }
 };
