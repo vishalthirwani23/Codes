@@ -1,0 +1,22 @@
+https://leetcode.com/problems/make-sum-divisible-by-p/
+Code :
+
+Time Complexity - O(N) | Space Complexity - O(N)
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        int n = nums.size(), sum = 0, need = 0, ans = n;
+        unordered_map<int, int> last{{0, -1}};
+        
+        for (int& num : nums)
+            need = (need + num % p) % p;
+        for (int i = 0; i < n; i++) {
+            sum = (sum + nums[i] % p) % p;
+            last[sum] = i;
+            int want = (sum - need + p) % p;
+            if (last.count(want))
+                ans = min(ans, i - last[want]);
+        }
+        return ans < n ? ans : -1;
+    }
+};
