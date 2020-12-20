@@ -1,0 +1,31 @@
+https://leetcode.com/problems/cherry-pickup-ii/
+Code : 
+
+Time Complexity - O()
+class Solution {
+public:
+    int dp[70][70][70];
+    
+    int cherryPickup(vector<vector<int>>& grid) {
+        memset(dp, -1, sizeof(dp));
+        int rows = grid.size(), cols = grid[0].size();
+        
+        return dfs(grid, rows, cols, 0 , 0, cols-1);;
+    }
+    
+    int dfs(vector<vector<int>>& grid, int rows, int cols, int row, int col1, int col2) {
+        if(row == rows) return 0;
+        if(dp[row][col1][col2] != -1) return dp[row][col1][col2];
+        int ans = 0;
+        
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int ncol1 = col1 + i, ncol2 = col2 + j;
+                if(ncol1 >= 0 && ncol1 < cols && ncol2 >= 0 && ncol2 < cols)
+                ans = max(ans, dfs(grid, rows, cols, row+1, ncol1, ncol2));
+            }
+        }
+        int cherry = col1 == col2 ? grid[row][col1] : grid[row][col1] + grid[row][col2];
+        return dp[row][col1][col2] = ans + cherry;
+    }
+};
