@@ -21,15 +21,10 @@ Recursive Solution:
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        
-        if(head==NULL)       return head;
-        if(head->next==NULL) return head;
-        
-        ListNode *next = head->next;
-        head->next     = swapPairs(next->next);
-        next->next     = head;
-        return next;
-        
+        if(head == NULL || head->next == NULL) return head;
+        ListNode* node = head->next->next, *ans = head->next;
+        head->next->next = head;
+        head->next = swapPairs(node);
+        return ans;
     }
 };
-
