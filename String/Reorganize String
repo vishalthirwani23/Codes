@@ -1,0 +1,43 @@
+https://leetcode.com/problems/reorganize-string/
+Code :
+
+Time Complexity - O(N) | Space Complexity - O(N)
+class Solution {
+public:
+    string reorganizeString(string S) {
+        int n = S.length(), Max = 0, index = 0;
+        vector<int> count(26, 0);
+        char letter = 'a', res[n];
+        string ans;
+        
+        for (char c : S) {
+            count[c - 'a']++;
+            if (count[c - 'a'] > Max) {
+                Max = count[c - 'a'];
+                letter = c;
+            }
+        }
+        
+        if (count[letter - 'a'] > (n + 1) / 2) return "";
+        while (count[letter - 'a'] != 0) {
+            res[index] = letter;
+            index += 2;
+            count[letter - 'a']--;
+        }
+        
+        for (int i = 0; i < 26; i++) {
+            while (count[i] != 0) {
+                if (index >= n) index = 1;
+                res[index] = char('a' + i);
+                index += 2;
+                count[i]--;
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            ans += res[i];
+        }
+        
+        return ans;
+    }
+};
