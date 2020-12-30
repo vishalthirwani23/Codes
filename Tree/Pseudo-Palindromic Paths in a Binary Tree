@@ -4,29 +4,23 @@ Code:
 Time Complexity - O(N) | Space Complexity - O(H)
 class Solution {
 public:
-    void backtrack(TreeNode* root, vector<int>& count, int& ans){
+    void backtrack (TreeNode* root, vector<int>& count, int& ans) {
         if(root == NULL) return ;
         count[root->val]++;
-        if(root->left == NULL && root->right == NULL){
+        if (root->left == NULL && root->right == NULL) {
             int flag = 0;
-            for(int i = 1; i < 10; i++){
-                if(count[i] % 2){
-                    flag++;
-                    if(flag > 1){
-                        count[root->val]--;
-                        return ;
-                    }
-                }
+            for (int i = 1; i < 10; i++) {
+                if(count[i] % 2 == 1) flag++;
             }
-            ans++;
-            count[root->val]--;
-            return ;
+            if(flag <= 1) ans++;
         }
-        backtrack(root->left, count, ans);
-        backtrack(root->right, count, ans);
+        else {
+            backtrack(root->left, count, ans);
+            backtrack(root->right, count, ans);        
+        }
         count[root->val]--;
-        return ;
-    }
+    }  
+    
     int pseudoPalindromicPaths (TreeNode* root) {
         int ans = 0;
         vector<int> count(10, 0);
