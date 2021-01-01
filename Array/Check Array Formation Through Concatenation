@@ -1,0 +1,28 @@
+https://leetcode.com/problems/check-array-formation-through-concatenation/
+Code:
+
+Time Complexity - O(100) | Space Complexity - O(100)
+class Solution {
+public:
+    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
+        int n1 = arr.size(), n2 = pieces.size();
+        vector<int> pos(101, -1);
+        
+        for (int i = 0; i < n2; i++) {
+            pos[pieces[i][0]] = i;
+        }
+        for (int i = 0; i < n1; ) {
+            int p = pos[arr[i]], j = 0;
+            if (p == -1)
+                return false;
+            while (j < pieces[p].size())
+                if (arr[i++] != pieces[p][j++])
+                    return false;
+        }
+        
+        return true;
+    }
+};
+
+
+
