@@ -1,0 +1,60 @@
+https://leetcode.com/problems/diagonal-traverse/
+Code:
+
+Approach 1->
+Time Complexity - O(M * (M + N)) | Space Complexity - O(1)
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        if (matrix.empty()) return ans;
+        int m = matrix.size(), n = matrix[0].size(), val = 0, dir = 1;
+        
+        while (val <= m + n - 2) {
+            if (dir == 1) {
+                for (int row = m - 1; row >= 0; row--) {
+                    if (val - row >= 0 && val - row < n)
+                        ans.push_back(matrix[row][val-row]);
+                }
+            }
+            else{
+                for (int row = 0; row < m; row++) {
+                    if (val - row >= 0 && val - row < n)
+                        ans.push_back(matrix[row][val-row]);
+                }
+            }
+            dir = 1- dir;
+            val++;
+        }
+        
+        return ans;
+    }
+};
+
+Approach 2->
+Time Complexity - O(M * N) | Space Complexity - O(1)
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
+        if (matrix.empty()) return {};
+        
+        int m = matrix.size(), n = matrix[0].size(), r = 0, c = 0;
+        vector<int> ans(m * n);
+        
+        for (int i = 0; i < m * n; i++) {
+            ans[i] = matrix[r][c];
+            if ((r + c) % 2 == 0) {
+                if (c == n - 1) r++;
+                else if (r == 0) c++;
+                else r--, c++;
+            }
+            else {
+                if (r == m - 1) c++;
+                else if (c == 0) r++;
+                else r++, c--;
+            }
+        }
+        
+        return ans;
+    }
+};
