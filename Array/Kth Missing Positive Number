@@ -1,0 +1,23 @@
+https://leetcode.com/problems/kth-missing-positive-number/
+Code:
+
+Time Complexity - O(logN) | Space Complexity - O(1)
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int n = arr.size(), start = 0, end = n - 1, mid, index = n;
+        
+        while (start <= end) {
+            mid = start + (end - start) / 2;
+            if (arr[mid] - mid - 1 >= k) {
+                index = mid;
+                end = mid - 1;
+            }
+            else {
+                start = mid + 1;
+            }
+        }
+        
+        return index + k;
+    }
+};
