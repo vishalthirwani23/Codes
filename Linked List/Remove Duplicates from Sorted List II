@@ -1,26 +1,28 @@
 https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
 Code:
 
+Time Complexity - O(N) | Space Complexity - O(1)
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-      if(head==NULL || head->next==NULL)
-          return head;
-      ListNode *dummy=new ListNode(),*curr=head,*prev;
-      dummy->next=head;
-      prev=dummy;
-        while(curr){
-            while(curr->next && prev->next->val == curr->next->val)
-                curr=curr->next;
-            if(prev->next==curr)
-                prev=curr;
-            else
-                prev->next=curr->next;
-            curr=curr->next;
+        if(head == NULL || head->next == NULL) return head;
+        ListNode *curr = head, *dummy = new ListNode(101), *prev = dummy;
+        
+        while (curr) {
+            int cnt = 0;
+            while (curr->next != NULL && curr->next->val == curr->val) {
+                cnt++;
+                curr = curr->next;
+            }
+            if (!cnt) {
+                prev->next = curr;
+                prev = curr;
+            }
+            curr = curr->next;  
         }
-          return dummy->next;  
+        prev->next = NULL;
+        
+        return dummy->next;
     }
 };
 
