@@ -23,4 +23,130 @@ public:
     }
 };
 
-Approach 2:
+Approach 2: Time Complexity O(NlogN) | Space Complexity O(logN) 
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        
+        ListNode *slow, *fast;
+        
+        slow = fast = head;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+       
+        ListNode* headLeft = sortList(slow->next);
+        slow->next = NULL;
+        ListNode* headRight = sortList(head);
+        return merge(headLeft, headRight);
+    }
+    
+    ListNode* merge(ListNode* l1, ListNode* l2) {
+        if (l1 == NULL) return l2;
+        if (l2 == NULL) return l1;
+        
+        ListNode *dummy = new ListNode(101), *prev = dummy;
+        
+        while (l1 != NULL && l2 != NULL) {
+            if (l1->val < l2->val) {
+                 prev->next = l1;
+                 l1 = l1->next;
+            }
+            else {
+                prev->next = l2;
+                l2 = l2->next;
+            }
+            prev = prev->next;
+        } 
+        
+        while (l1 != NULL) {
+            prev->next = l1;
+            l1 = l1->next;   
+            prev = prev->next;    
+        } 
+        
+        while (l2 != NULL) {
+            prev->next = l2;
+            l2 = l2->next;
+            prev = prev->next;     
+        } 
+        
+        
+        return dummy->next;
+    }
+};
+
+Approach 3: Time Complexity O(NlogN) | Space Complexity O(1)
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        int length = 0;
+        ListNode *temp = head, *dummy = new ListNode, *left, *right, *tail, *curr;
+        dummy->next = head;
+        while (temp) {
+            length++;
+            temp = temp->next;
+        }
+        
+        for (int i = 1; i < length; i += i) {
+            curr = dummy->next;
+            tail = dummy;
+            while (curr) {
+                left = curr;
+                right = split(left, i);
+                curr = split(right, i);
+                tail = merge(left, right, tail);
+            }   
+        }
+        return dummy->next;
+    }
+    
+    ListNode* split(ListNode* node, int n) {
+        for (int i = 1; node && i < n; i++) {
+            node = node->next;
+        }
+        if (node == NULL) return NULL;
+        ListNode* next = node->next;
+        node->next = NULL;
+        return next;
+    }
+    
+    ListNode* merge(ListNode* l1, ListNode* l2, ListNode* tail) {
+        ListNode *dummy = new ListNode(101), *prev = tail;
+        
+        while (l1 != NULL && l2 != NULL) {
+            if (l1->val < l2->val) {
+                 prev->next = l1;
+                 l1 = l1->next;
+            }
+            else {
+                prev->next = l2;
+                l2 = l2->next;
+            }
+            prev = prev->next;
+        } 
+        
+       prev->next = (l1 ? l1 : l2);
+       while (prev->next) prev = prev->next; 
+        
+       return prev;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
