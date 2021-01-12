@@ -1,40 +1,40 @@
 https://leetcode.com/problems/add-two-numbers-ii/
 Code:
 
+Time Complexity - O(max(len1, len2)) | Space Complexity - O(1)
 class Solution {
 public:
-    int length(ListNode* node){
-        int len=0;
-        while(node){
-            len++;
-            node=node->next;
-        } 
-        return len;
-       
-    }
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int n1=length(l1),n2=length(l2),carry=0;
-        ListNode *head=new ListNode(1);
-        head->next=n1>n2?add(l1,l2,n1-n2,carry):add(l2,l1,n2-n1,carry);    
-        return carry?head:head->next;    
-    }
-    ListNode* add(ListNode* l1,ListNode* l2,int k,int& carry){
-        if(l2==NULL) return NULL;
-        ListNode *p=new ListNode(l1->val);
-        if(k>0){
-            p->next=add(l1->next,l2,k-1,carry);
+        stack<int> num1, num2;
+        ListNode *temp1 = l1, *temp2 = l2, *node, *present = new ListNode;
+        int sum, carry = 0;
+        
+        while (temp1) {
+            num1.push(temp1->val);
+            temp1 = temp1->next; 
         }
-        else{
-            p->val+=l2->val;
-            p->next=add(l1->next,l2->next,k-1,carry);
+        while (temp2) {
+            num2.push(temp2->val);
+            temp2 = temp2->next; 
         }
-        p->val+=carry;
-        carry=p->val/10;
-        p->val%=10;
-        return p;
+        
+        while (!num1.empty() || !num2.empty()) {
+            sum = (num1.empty() ? 0 : num1.top()) + (num2.empty() ? 0 : num2.top()) + carry;
+            carry = sum / 10;
+            sum %= 10;
+            present->val = sum;
+            node = new ListNode(1);
+            node->next = present;
+            present = node;
+            if (!num1.empty())
+                num1.pop();
+            if (!num2.empty())
+                num2.pop();
+        }
+        
+        if (carry)
+            return present;
+        else
+            return present->next;
     }
-    
 };
-
-
-
