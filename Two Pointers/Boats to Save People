@@ -1,19 +1,25 @@
 https://leetcode.com/problems/boats-to-save-people/
 Code:
 
+Time Complexity - O(NlogN) | Space Complexity - O(1)
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {
-        int n = people.size(), ans = n, start = 0, end = n - 1;
+        int n = people.size(), ans = 0, start = 0, end = n - 1;
+        
         sort(people.begin(), people.end());
-        while(start < end){
-            if(people[start] + people[end] <= limit){
-                ans--;
-                people[end] += people[start];
+        while (start <= end) {
+            if (people[start] + people[end] <= limit) {
                 start++;
-            }
                 end--;
+                ans++;
+            }
+            else {
+                end--;
+                ans++;
+            }
         }
+        
         return ans;
     }
 };
