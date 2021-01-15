@@ -1,0 +1,26 @@
+https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(N)
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int n = nums.size(), ans = INT_MIN, sum = 0, target = -x;
+        unordered_map<int,int> present;
+        
+        present[0] = -1;
+        for (int i = 0; i < n; i++) {
+            target += nums[i];
+        }
+        
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            present[sum] = i;
+            if (present.count(sum - target))
+                ans = max(ans, i - present[sum - target]);
+        }
+        
+        if (ans == INT_MIN) return -1;
+        return n - ans;
+    }
+};
