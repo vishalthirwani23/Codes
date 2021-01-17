@@ -1,0 +1,31 @@
+https://leetcode.com/problems/fraction-addition-and-subtraction/
+Code:
+
+class Solution {
+public:
+    int gcd(int a, int b) {
+        if (a == 0) return b;
+        return gcd(b % a, a);
+    }
+    string fractionAddition(string s) {
+        int n = 0, d = 1, index = 0, index1 = 1, index2;
+        int nn, dd, GCD;
+        
+        if (s[0] != '-') s = '+' + s;
+        while (index < s.length()) {
+            for (index1 = index + 1; s[index1] != '/'; index1++) ;
+            for (index2 = index1 + 1; index2 < s.length() && s[index2] != '+' && s[index2] != '-'; index2++) ;
+            nn = stoi(s.substr(index + 1, index1 - index - 1));
+            dd = stoi(s.substr(index1 + 1, index2 - index1 - 1));
+            GCD = gcd(d, dd);
+            n = n * dd / GCD + (s[index] == '+' ? 1 : -1) * nn * d / GCD;
+            d *= dd / GCD;
+            index = index2;
+        }
+        GCD = gcd(abs(n), d);
+        n /= GCD;
+        d /= GCD;
+        
+        return to_string(n) + '/' + to_string(d);
+    }
+};
