@@ -1,23 +1,58 @@
 https://leetcode.com/problems/copy-list-with-random-pointer/
 Code:
 
-Method 1: O(n) space complexity | O(n) time complexity
+Approach  1: Time Complexity - O(N) | Space Complexity - O(N) 
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(head==NULL) return NULL;
-        Node *tmp=head;
-        map<Node*,Node*> m;
-        while(tmp){
-            m[tmp]=new Node(tmp->val);
-            tmp=tmp->next;
+        if (head == NULL) return NULL;
+        unordered_map<Node*, Node*> copy;
+        
+        Node* node = head;
+        while (node) {
+            copy[node] = new Node(node->val);
+            node = node->next;
         }
-        tmp=head;
-        while(tmp){
-            m[tmp]->next=m[tmp->next];
-            m[tmp]->random=m[tmp->random];
-            tmp=tmp->next;
+        node = head;
+        while (node) {
+            copy[node]->next = copy[node->next];
+            copy[node]->random = copy[node->random];
+            node = node->next;
         }
-        return m[head];
+        
+        return copy[head];
+    }
+};
+
+Approach  2: Time Complexity - O(N) | Space Complexity - O(1)
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == NULL) return NULL;
+        Node *node = head, *next, *dummy = new Node(0), *prev = dummy;
+        
+        while (node) {
+            next = node->next;
+            node->next = new Node(node->val);
+            node->next->next = next;
+            node = next;
+        }
+        
+        node = head;
+        while (node) {
+            if (node->random)
+                node->next->random = node->random->next;
+            node = node->next->next;
+        }
+        
+        node = head;
+        while (node) {
+            prev->next = node->next;
+            prev = prev->next;
+            node->next = node->next->next;
+            node = node->next;
+        }
+        
+        return dummy->next;
     }
 };
