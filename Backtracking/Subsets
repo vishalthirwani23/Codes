@@ -1,0 +1,26 @@
+https://leetcode.com/problems/subsets/
+Code:
+
+Time Complexity - O(2 ^ N) | Space Complexity - O(N)
+class Solution {
+public:
+    void backtrack(vector<int>& nums, int n, vector<vector<int>>& ans, vector<int>& temp, int start) {
+        if (start == n) {
+            ans.push_back(temp);
+            return;
+        }
+       
+        temp.push_back(nums[start]);
+        backtrack(nums, n, ans, temp, start + 1);
+        temp.pop_back();
+        backtrack(nums, n, ans, temp, start + 1);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        int n = nums.size();
+        
+        backtrack(nums, n, ans, temp, 0);
+        return ans;
+    }
+};
