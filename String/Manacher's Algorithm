@@ -1,0 +1,38 @@
+https://leetcode.com/problems/longest-palindromic-substring/
+Code:
+
+Approach 1: Time Complexity - O(N) | Space Complexity - O(N)
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.length(), center = 0, boundary = 0, maxLength = 1, mirror, resCenter = 0;
+        string t;
+        for (int i = 0; i < n - 1; i++) {
+            t += s.substr(i, 1) + "#";
+        }
+        t += s[n - 1];
+        n = 2 * n - 1;
+        vector<int> len(n, 0);
+        
+        for (int i = 1; i < n; i++) {
+            mirror = 2 * center - i;
+            if (i <= boundary)
+                len[i] = min(len[mirror], boundary - i);
+            while (i + len[i] + 1 < n && i - len[i] - 1 >= 0 && t[i - len[i] - 1] == t[i + len[i] + 1]) {
+                len[i]++;
+            }
+            if (len[i] > boundary) {
+                center = i;
+                boundary = i + len[i];
+            }
+            if (len[i] > maxLength) {
+                resCenter = i;
+                maxLength = len[i];
+            }
+        }
+        
+        return s.substr((resCenter - maxLength) / 2, maxLength);
+    }
+};
+
+Approach 2:
