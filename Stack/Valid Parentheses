@@ -1,32 +1,26 @@
+https://leetcode.com/problems/valid-parentheses/
+Code:
+
+Time Complexity - O(N) | Space Complexity - O(N)
+class Solution {
+public:
     bool isValid(string s) {
-        stack<char> z;
-        int n=s.length(),i;char c;
-        for(i=0;i<n;i++){
-            if(s[i]=='(' || s[i]=='[' || s[i]=='{'  )
-                z.push(s[i]);
-            else{
-                 if(z.empty())
-                       return 0;
-                 c=z.top();
-                 z.pop();
-                if(s[i]==')')
-                {
-                   if(c!='(')
-                        return 0;
-                }
-               else if(s[i]==']')
-                {
-                    if(c!='[')
-                        return 0;
-                }
-               else if(s[i]=='}')
-                {
-                    if(c!='{')
-                        return 0;
-                }
+        int n = s.length();
+        stack<char> brackets;
+        
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '{' || s[i] == '(' || s[i] == '[') {
+                brackets.push(s[i]);
+            }
+            else {
+                if (brackets.empty()) return false;
+                if (s[i] == ')' && brackets.top() != '(' ) return false;
+                if (s[i] == ']' && brackets.top() != '[' ) return false;
+                if (s[i] == '}' && brackets.top() != '{' ) return false;
+                brackets.pop();
             }
         }
-        if(z.empty())
-        return 1;
-        return 0;
+        
+        return brackets.empty();
     }
+};
