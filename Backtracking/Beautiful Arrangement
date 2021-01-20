@@ -1,0 +1,27 @@
+https://leetcode.com/problems/beautiful-arrangement/
+Code:
+
+Time Complexity - O(N!) | Space Complexity - O(N)
+class Solution {
+public:
+    void backtrack(int n, vector<bool>& used, int& ans, int start) {
+        if (start == 0) {
+            ans++;
+            return;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (used[i] == false && (start % i == 0 || i % start == 0)) {
+                used[i] = true;
+                backtrack(n, used, ans, start - 1);
+                used[i] = false;
+            }
+        }
+    }
+    int countArrangement(int n) {
+        int ans = 0;
+        vector<bool> used(n + 1, false);
+        
+        backtrack(n, used, ans, n);
+        return ans;
+    }
+};
