@@ -1,0 +1,25 @@
+https://leetcode.com/problems/maximum-profit-in-job-scheduling/
+Code:
+
+Time Complexity- O(NlogN) | Space Complexity- O(N)
+class Solution {
+public:
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        vector<vector<int>> jobs;
+        int n = startTime.size(), maxProfit = 0, pre;
+        map<int, int> dp;
+        
+        for (int i = 0; i < n; i++) {
+            jobs.push_back({endTime[i], startTime[i], profit[i]});
+        }
+        sort(jobs.begin(), jobs.end());
+        dp[0] = 0;
+        for (vector<int>& job : jobs) {
+            map<int, int>::iterator it = prev(dp.upper_bound(job[1]));
+            int curr = it->second + job[2];
+            dp[job[0]] = max(curr, dp.rbegin()->second);    
+        }
+        
+        return dp.rbegin()->second;
+    }
+};
