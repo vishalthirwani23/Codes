@@ -1,53 +1,25 @@
 https://leetcode.com/problems/binary-tree-right-side-view/
 Code:
 
-Method 1: Level Order Traversal | Time Complexity: O(n) | Space Complexity: O(n)
+Time Complexity- O(N) | Space Complexity- O(H)
 class Solution {
 public:
+    void helper(vector<int>& ans, int curLevel, int& maxLevel, TreeNode* root) {
+        if (root == NULL) {
+            return; 
+        }    
+        if (curLevel > maxLevel) {
+            ans.push_back(root->val);
+            maxLevel = curLevel;
+        }
+         helper(ans, curLevel + 1, maxLevel, root->right);
+         helper(ans, curLevel + 1, maxLevel, root->left);
+    }
     vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
-        if(root==NULL) return ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        TreeNode *temp=root;
-        while(q.size()){
-            ans.push_back(temp->val);
-           int n=q.size();
-          for(int i=1;i<=n;i++){
-              TreeNode *temp2=q.front();
-              q.pop();
-              if(temp2->left){
-                  q.push(temp2->left);
-                  temp=temp2->left;
-              }
-              if(temp2->right){
-                  q.push(temp2->right);
-                  temp=temp2->right;
-              }   
-          }
-        }
+        int curLevel = 1, maxLevel = 0;
+        helper(ans, curLevel, maxLevel, root);
         return ans;
     }
 };
-
-Method 2: Time Complexity: O(n) | Space Complexity: O(h) 
-class Solution {
-public:
-    vector<int> ans;
-    void rightSideViewUtil(TreeNode* root,int cur_level, int& max_level){
-        if(root==NULL) return ;
-        if(cur_level>max_level){
-            max_level=cur_level;
-            ans.push_back(root->val);
-        }
-         rightSideViewUtil(root->right,cur_level+1,max_level);
-         rightSideViewUtil(root->left,cur_level+1,max_level);
-    }
-    vector<int> rightSideView(TreeNode* root) {
-     int max_level=0,cur_level=1;
-        rightSideViewUtil(root,cur_level,max_level);
-        return ans;
-    }
-};
-
 
