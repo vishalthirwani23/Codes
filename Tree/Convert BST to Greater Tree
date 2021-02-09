@@ -1,0 +1,20 @@
+https://leetcode.com/problems/convert-bst-to-greater-tree/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(H)
+class Solution {
+public:
+    TreeNode* helper(TreeNode* root, int& sum) {
+        if (root == NULL)
+            return NULL;
+        helper(root->right, sum);
+        root->val += sum;
+        sum = root->val;
+        helper(root->left, sum);
+        return root;
+    }
+    TreeNode* convertBST(TreeNode* root) {
+        int sum = 0;
+        return helper(root, sum);
+    }
+};
