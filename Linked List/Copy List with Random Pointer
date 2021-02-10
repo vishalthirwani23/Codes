@@ -28,7 +28,8 @@ Approach  2: Time Complexity - O(N) | Space Complexity - O(1)
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if (head == NULL) return NULL;
+        if (head == NULL)
+            return head;
         Node *node = head, *next, *dummy = new Node(0), *prev = dummy;
         
         while (node) {
@@ -37,18 +38,16 @@ public:
             node->next->next = next;
             node = next;
         }
-        
         node = head;
         while (node) {
-            if (node->random)
-                node->next->random = node->random->next;
+            node->next->random = (node->random ? node->random->next : NULL);
             node = node->next->next;
         }
-        
         node = head;
         while (node) {
             prev->next = node->next;
-            prev = prev->next;
+            prev = prev->next; 
+            //node->next->random = node->random->next;
             node->next = node->next->next;
             node = node->next;
         }
