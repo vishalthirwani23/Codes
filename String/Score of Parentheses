@@ -1,0 +1,24 @@
+https://leetcode.com/problems/score-of-parentheses/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(1)
+class Solution {
+public:
+    int scoreOfParentheses(string S) {
+        int score = 0, open = 0;
+        
+        for (int i = 0; i < S.length(); i++) {
+            if (S[i] == '(') {
+                open++;    
+            }   
+            else {
+                open--;
+                if (S[i - 1] == '(') {
+                    score += (1 << open);
+                }
+            }
+        }
+        
+        return score;
+    }
+};
