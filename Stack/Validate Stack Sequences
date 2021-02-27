@@ -1,0 +1,21 @@
+https://leetcode.com/problems/validate-stack-sequences/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        stack<int> s;
+        int j = 0;
+        
+        for (int i = 0; i < pushed.size(); i++) {
+            s.push(pushed[i]);
+            while (j < popped.size() && !s.empty() && popped[j] == s.top()) {
+                j++;
+                s.pop();
+            }
+        }
+        
+        return j == popped.size(); 
+    }
+};
