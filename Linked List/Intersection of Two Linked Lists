@@ -1,19 +1,17 @@
 https://leetcode.com/problems/intersection-of-two-linked-lists/
 Code:
 
+Time Complexity- O(N1 + N2) | Space Complexity- O(1)
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-        ListNode *tmp1=headA,*tmp2=headB;
+        ListNode *temp1 = headA, *temp2 = headB;
         
-        while(tmp1!=tmp2){
-           
-            tmp1=(tmp1?tmp1->next:headB);
-            tmp2=(tmp2?tmp2->next:headA);
-            
+        while (temp1 != temp2) {
+            temp1 = (temp1 ? temp1->next : headB);
+            temp2 = (temp2 ? temp2->next : headA);
         }
-        return tmp1;
+        
+        return temp1;
     }
 };
