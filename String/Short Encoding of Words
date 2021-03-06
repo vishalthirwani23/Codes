@@ -1,0 +1,26 @@
+https://leetcode.com/problems/short-encoding-of-words/
+Code:
+
+Time Complexity- O() | Space Complexity- O(N * K)
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        int ans = 0, n = words.size();
+        set<string> s(words.begin(), words.end());
+        
+        for (string str : s) {
+            for (int i = 1; i < str.length(); i++) {
+                s.erase(str.substr(i));
+            }
+        }
+        for (string str : s) {
+            ans += str.length() + 1;    
+        }
+        
+        return ans;
+    }
+};
+
+
+
+
