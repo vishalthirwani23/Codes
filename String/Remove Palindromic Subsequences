@@ -1,0 +1,28 @@
+https://leetcode.com/problems/remove-palindromic-subsequences/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(1)
+class Solution {
+public:
+    int removePalindromeSub(string s) {
+        if (s.empty()) {
+            return 0;
+        }    
+        
+        int n = s.length(), start = 0, end = n - 1;
+        
+        while (start < end) {
+            if (s[start] == s[end]) {
+                start++;
+                end--;
+            }
+            else {
+                break;    
+            }
+        }
+        if (start >= end) {
+            return 1;
+        }
+        return 2;
+    }
+};
