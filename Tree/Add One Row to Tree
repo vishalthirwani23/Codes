@@ -1,0 +1,48 @@
+https://leetcode.com/problems/add-one-row-to-tree/
+Code:
+
+Iterative approach-
+Time Complexity- O(N) | Space Complexity- O(N) 
+class Solution {
+public:
+    TreeNode* addOneRow(TreeNode* root, int v, int d) {
+        if (d == 1) {
+            TreeNode* node = new TreeNode(v);
+            node->left = root;
+            return node;
+        }   
+        
+        TreeNode *node, *left, *right;
+        queue<TreeNode*> q;
+        int sz;
+        
+        q.push(root);
+        for (int i = 1; i <= d - 2; i++) {
+            sz = q.size();
+            for (int j = 0; j < sz; j++) {
+                node = q.front();
+                q.pop();
+                if (node->left) {
+                    q.push(node->left);
+                }
+                if (node->right) {
+                    q.push(node->right);
+                }
+            }
+        }
+        while (!q.empty()) {
+            node = q.front();
+            q.pop();
+            left = node->left;
+            right = node->right;
+            node->left = new TreeNode(v);
+            node->right = new TreeNode(v);
+            node->left->left = left;
+            node->right->right = right;
+        }
+        
+        return root;
+    }
+};
+
+Recursive approach-
