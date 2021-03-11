@@ -1,0 +1,42 @@
+https://leetcode.com/problems/word-break-ii/
+Code:
+
+class Solution {
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        int n = wordDict.size(), n1 = s.length();
+        vector<vector<string>> sentence(n1);
+        unordered_map<string, int> present;
+        string str;
+        
+        for (int i = 0; i < n; i++) {
+            present[wordDict[i]] = 1;
+        } 
+        for (int i = 0; i < n1; i++) {
+            str = "";
+            for (int j = i; j >= 0; j--) {
+                str = s[j] + str;
+                if (present.count(str)) {
+                    if (j == 0) {
+                        sentence[i].push_back(str);
+                    }
+                    else {
+                        for (int k = 0; k < sentence[j - 1].size(); k++) {
+                            sentence[i].push_back(sentence[j - 1][k] + " " + str); 
+                        }
+                          
+                    } 
+                }
+            }
+        }
+        
+        return sentence[n1 - 1];
+    }
+};
+
+
+
+
+
+       
+ 
