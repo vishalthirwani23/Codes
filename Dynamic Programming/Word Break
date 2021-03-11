@@ -1,20 +1,29 @@
-https://www.interviewbit.com/problems/word-break/
+https://leetcode.com/problems/word-break/
 Code:
 
-Method 1:
-int Solution::wordBreak(string A, vector<string> &B) {
-    unordered_map<string,int> m;
-    int n1=A.length(),n2=B.size();
-    for(int i=0;i<n2;i++)
-    m[B[i]]=1;
-    vector<int> dp(n1+1,0);
-    dp[0]=1;
-    for(int i=1;i<=n1;i++){
-        string s;
-        for(int j=i-1;j>=0;j--){
-            s=A[j]+s;
-            if(m[s] &&( j==0 || dp[j])) dp[i]=1;
+Time Complexity- O(N1 * N1 * N1 + N) | Space Complexity- O(N1 + N)
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_map<string, int> present;
+        int n = wordDict.size(), n1 = s.length();
+        string str;
+        vector<int> dp(n1, 0);
+        
+        for (int i = 0; i < n; i++) {
+            present[wordDict[i]] = 1;
+        } 
+        for (int i = 0; i < n1; i++) {
+            str = "";
+            for (int j = i; j >= 0; j--) {
+                str = s[j] + str;
+                if (present.count(str) && (j == 0 || dp[j - 1])) {
+                    dp[i] = 1;
+                    break;
+                }
+            }
         }
+        
+        return dp[n1 - 1];
     }
-    return dp[n1];
-}
+};
