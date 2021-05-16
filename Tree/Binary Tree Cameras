@@ -1,0 +1,34 @@
+https://leetcode.com/problems/binary-tree-cameras/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(H)
+class Solution {
+public:
+    int res = 0;
+    int helper(TreeNode* root) {
+        if (!root) {
+            return 1;
+        }
+        int lval, rval;
+        
+        lval = helper(root->left);
+        rval = helper(root->right);
+        if (lval == -1 || rval == -1) {
+            res++;
+            return 0;
+        }
+        if (lval == 0 || rval == 0) {
+            return 1;
+        }
+        
+        return -1;
+    }
+    
+    int minCameraCover(TreeNode* root) {
+        int val = helper(root);
+        if (val == -1) {
+            return 1 + res;
+        } 
+        return res;
+    }
+};
