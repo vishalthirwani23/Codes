@@ -1,7 +1,7 @@
 https://leetcode.com/problems/longest-string-chain/
 Code:
 
-Time Complexity- O() | Space Complexity- O()
+Time Complexity- O(NSS) | Space Complexity- O(NS + S)
 class Solution {
 public:
     static bool cmp(string s1, string s2) {
