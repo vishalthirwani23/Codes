@@ -1,0 +1,33 @@
+https://leetcode.com/problems/132-pattern/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> mn(n);
+        stack<int> s;
+        
+        mn[0] = INT_MAX;
+        for (int i = 1; i < n; i++) {
+            mn[i] = min(mn[i - 1], nums[i - 1]);
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            while (!s.empty()) {
+                if (s.top() > mn[i] && nums[i] > s.top()) {
+                    return true;
+                }
+                if (s.top() <= mn[i]) {
+                    s.pop();
+                }
+                else {
+                    break;
+                }
+            }
+            s.push(nums[i]);
+        }
+        
+        return false;
+    }
+};
