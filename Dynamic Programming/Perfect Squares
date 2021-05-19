@@ -1,0 +1,19 @@
+https://leetcode.com/problems/perfect-squares/
+Code:
+
+Time Complexity- O(N * sqrt(N)) | Space Complexity- O(N)
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> dp(n + 1, 10001);
+        
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j * j <= i; j++) {
+                dp[i] = min(dp[i], 1 + dp[i - j * j]);    
+            }    
+        }
+        
+        return dp[n];
+    }
+};
