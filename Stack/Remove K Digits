@@ -1,0 +1,39 @@
+https://leetcode.com/problems/remove-k-digits/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        int i = 0, n = num.size();
+        stack<char> s;
+        string ans;
+        
+        if (k == n) {
+            return "0";
+        }
+        while (i < n) {
+            while (!s.empty() && k > 0 && s.top() > num[i]) {
+                s.pop();
+                k--;
+            }    
+            s.push(num[i]);
+            i++;
+        }
+        
+        while (k) {
+            s.pop();
+            k--;
+        }
+        while (!s.empty()) {
+            ans += s.top();
+            s.pop();
+        }
+        while (ans.size() > 1 && ans.back() == '0') {
+            ans.pop_back();
+        }
+        reverse(ans.begin(), ans.end());
+        
+        return ans;         
+    }
+};
