@@ -1,29 +1,29 @@
 https://leetcode.com/problems/word-break/
 Code:
 
-Time Complexity- O(N1 * N1 * N1 + N) | Space Complexity- O(N1 + N)
+Time Complexity- O(N + N2 * N2 * N2) | Space Complexity- O(N * 20 + N + 2 * N2)
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
         unordered_map<string, int> present;
-        int n = wordDict.size(), n1 = s.length();
+        int n = wordDict.size(), n2 = s.length();
+        vector<int> dp(n2, 0);
         string str;
-        vector<int> dp(n1, 0);
         
         for (int i = 0; i < n; i++) {
             present[wordDict[i]] = 1;
-        } 
-        for (int i = 0; i < n1; i++) {
+        }
+        for (int i = 0; i < n2; i++) {
             str = "";
             for (int j = i; j >= 0; j--) {
                 str = s[j] + str;
-                if (present.count(str) && (j == 0 || dp[j - 1])) {
+                if (present[str] && (j == 0 || dp[j - 1])) {
                     dp[i] = 1;
                     break;
                 }
             }
         }
         
-        return dp[n1 - 1];
+        return (dp[n2 - 1] == 1);
     }
 };
