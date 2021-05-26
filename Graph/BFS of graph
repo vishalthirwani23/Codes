@@ -1,4 +1,4 @@
-Time Complexity - O(V + E) | Space Complexity - O(V)
+Time Complexity - O(V + E) | Space Complexity - O(V + E)
 vector<int> bfs(vector<int> g[], int N) {
     vector<int> ans;
     vector<bool> visited(N, false);
