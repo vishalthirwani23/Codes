@@ -1,0 +1,39 @@
+https://leetcode.com/problems/maximum-gap/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    int maximumGap(vector<int>& nums) {
+        int n = nums.size(), mn, mx, index, bucketSize, maxGap, previous;
+        if (n == 1) {
+            return 0;
+        }
+        
+        mn = *min_element(nums.begin(), nums.end());
+        mx = *max_element(nums.begin(), nums.end());
+        if (mx == mn) {
+            return 0;
+        }
+        bucketSize = (mx - mn + n - 2) / (n - 1);                  
+        vector<int> Min(n, INT_MAX), Max(n, INT_MIN);
+        
+        for (int i = 0; i < n; i++) {
+            index = (nums[i] - mn) / bucketSize;
+            Min[index] = min(Min[index], nums[i]);
+            Max[index] = max(Max[index], nums[i]);
+        }
+        
+        previous = Max[0];
+        maxGap = bucketSize;
+        for (int i = 1; i < n; i++) {
+            if (Min[i] == INT_MAX) {
+                continue;
+            }
+            maxGap = max(maxGap, Min[i] - previous);
+            previous = Max[i];
+        }
+        
+        return maxGap;   
+    }
+};
