@@ -1,0 +1,28 @@
+https://leetcode.com/problems/search-suggestions-system/
+Code:
+
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        vector<vector<string>> ans;
+        sort(products.begin(), products.end());
+        string str;
+        int index;
+        
+        for (int i = 0; i < searchWord.size(); i++) {
+            str += searchWord[i];
+            vector<string> words;
+            index = lower_bound(products.begin(), products.end(), str) - products.begin();
+            
+            for (int j = index; j < products.size() && j < index + 3; j++) {
+                if (str != products[j].substr(0, str.size())) {
+                    break;
+                }
+                words.push_back(products[j]);
+            }
+            ans.push_back(words);
+        }
+        
+        return ans;
+    }
+};
