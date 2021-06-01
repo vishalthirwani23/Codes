@@ -1,0 +1,26 @@
+https://www.interviewbit.com/problems/matrix-median/
+Code:
+
+Time Complexity- O(log(1e9) * N * log(M)) | Space Complexity- O(1)
+int Solution::findMedian(vector<vector<int> > &A) {
+    int n = A.size(), m = A[0].size(), index, count;
+    int low = 1, mid, high = 1e9;
+    
+    while (low < high) {
+        mid = low + (high - low) / 2;
+        count = 0;
+        for (int i = 0; i < n; i++) {
+            index = upper_bound(A[i].begin(), A[i].end(), mid) - A[i].begin();
+            count += index;
+        }
+        
+        if (count >= (n * m) / 2 + 1) {
+            high = mid;
+        }
+        else {
+            low = mid + 1;    
+        }
+    }
+    
+    return low;
+}
