@@ -3,25 +3,27 @@ Code:
 
 class Solution {
 public:
-    void combinationSumUtil(vector<vector<int>>& ans,vector<int>& temp,int start,vector<int>& candidates, int target){
-    if(target<0) return ;
-    if(target==0){
-        ans.push_back(temp);
-        return ;
-    }
-    int n=candidates.size();
-    for(int i=start;i<n;i++){
-         temp.push_back(candidates[i]);
-         combinationSumUtil(ans,temp,i,candidates,target-candidates[i]);
-         temp.pop_back();
+    void backtrack(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& combination, int index, int target, int n) {
+        if (target == 0) {
+            ans.push_back(combination);
+            return;
+        }
+        if (target < 0 || index == n) {
+            return;
+        }
+        
+        combination.push_back(candidates[index]);
+        backtrack(candidates, ans, combination, index, target - candidates[index], n);
+        combination.pop_back();
+        backtrack(candidates, ans, combination, index + 1, target, n);
     }
     
-}
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-       
-        vector<vector<int> > ans;
-        vector<int> temp;
-        combinationSumUtil(ans,temp,0,candidates,target);
+        int n = candidates.size();
+        vector<vector<int>> ans;
+        vector<int> combination;
+        
+        backtrack(candidates, ans, combination, 0, target, n);
         return ans;
     }
 };
