@@ -5,28 +5,42 @@ Time Complexity : O(N) | Space Complexity : O(N)
 class Solution {
 public:
     bool canReach(vector<int>& arr, int start) {
+        if (arr[start] == 0) {
+            return true;
+        }
         int n = arr.size(), index, index1, index2;
         vector<bool> visited(n, false);
         queue<int> q;
+        
         q.push(start);
         visited[start] = true;
-        while(q.empty() == false){
+        while (!q.empty()) {
             index = q.front();
+            q.pop();
             index1 = index + arr[index];
             index2 = index - arr[index];
-            q.pop();
-            if(index1 < n && arr[index1] == 0) return true;
-            if(index2 >= 0 && arr[index2] == 0) return true;
-            if(index1 < n && visited[index1] == false){
-                visited[index1] = true;
-                q.push(index1);
+            
+            if (index1 >= 0 && index1 < n) {
+                if (arr[index1] == 0) {
+                    return true;
+                }
+                if (!visited[index1]) {
+                    q.push(index1);
+                    visited[index1] = true;
+                }
             }
-            if(index2 >= 0 && visited[index2] == false){
-                visited[index2] = true;
-                q.push(index2);
+            
+            if (index2 >= 0 && index2 < n) {
+                if (arr[index2] == 0) {
+                    return true;
+                }
+                if (!visited[index2]) {
+                    q.push(index2);
+                    visited[index2] = true;
+                }
             }
         }
+        
         return false;
     }
 };
-
