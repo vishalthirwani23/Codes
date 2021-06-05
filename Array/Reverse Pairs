@@ -1,0 +1,60 @@
+https://leetcode.com/problems/reverse-pairs/
+Code:
+
+Time Complexity- O(N * logN) | Space Complexity- O(N)
+class Solution {
+public:
+    void merge(vector<int>& nums, int s, int mid, int e, int& ans) {
+        if (s >= e) {
+            return;
+        }
+        int i = s, j = mid + 1, k = 0;
+        
+        while (i <= mid && j <= e) {
+            if (nums[i] > 2 * (long long)nums[j]) {
+                ans += (mid - i + 1);
+                j++;
+            }
+            else {
+                i++;
+            }
+        }
+        vector<int> arr(e - s + 1);
+        i = s;
+        j = mid + 1;
+        
+        while (i <= mid && j <= e) {
+            if (nums[i] < nums[j]) {
+                arr[k++] = nums[i++];
+            }
+            else {
+                arr[k++] = nums[j++];
+            }
+        } 
+        while (i <= mid) {
+            arr[k++] = nums[i++];
+        }
+        while (j <= e) {
+            arr[k++] = nums[j++];
+        }
+        for (int k = 0; k < e - s + 1; k++) {
+            nums[k + s] = arr[k];
+        }
+    }
+    
+    void mergeSort(vector<int>& nums, int s, int e, int& ans) {
+        if (s >= e) {
+            return;
+        }
+        int mid = s + (e - s) / 2, n = nums.size();
+        mergeSort(nums, s, mid, ans);
+        mergeSort(nums, mid + 1, e, ans);
+        merge(nums, s, mid, e, ans);
+    }
+    
+    int reversePairs(vector<int>& nums) {
+        int ans = 0, n = nums.size();
+        mergeSort(nums, 0, n - 1, ans);
+        return ans;
+    }
+};
