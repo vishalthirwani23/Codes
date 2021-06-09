@@ -1,0 +1,35 @@
+https://leetcode.com/problems/multiply-strings/
+Code:
+
+Time Complexity- O(N1 * N2) | Space Complexity- O(N1 + N2)
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int n1 = num1.size(), n2 = num2.size(), i, j = n2 - 1;
+        vector<int> result(n1 + n2, 0);
+        string ans;
+        
+        while (j >= 0) {
+            int carry = 0, jVal = num2[j] - '0', i = n - 1;
+            while (i >= 0 || carry != 0) {
+                int iVal = i >= 0 ? num1[i] - '0' : 0;
+                int product = iVal * jVal + carry + result[i + j + 1];
+                result[i + j + 1] = product % 10;
+                carry = product / 10;
+                i--;
+            }
+            j--;
+        }
+        
+        for (int i = 0; i < n1 + n2; i++) {
+            if (result[i] == 0 && ans.size()) {
+                ans += '0' + result[i];
+            }
+            else if (result[i] != 0) {
+                ans += '0' + result[i];
+            }
+        }
+        
+        return ans.size() ? ans : "0";
+    }
+};
