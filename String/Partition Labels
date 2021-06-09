@@ -1,0 +1,25 @@
+https://leetcode.com/problems/partition-labels/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(1)
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        int n = s.size(),start = 0, end = 0;
+        vector<int> ans, lastOccurrence(26);
+        
+        for (int i = 0; i < n; i++) {
+            lastOccurrence[s[i] - 'a'] = i;
+        }
+        for (int i = 0; i < n; i++) {
+            end = max(end, lastOccurrence[s[i] - 'a']);
+            if (end == i) {
+                ans.push_back(end - start + 1);
+                start = i + 1;
+                end = i + 1;
+            }
+        }
+        
+        return ans;
+    }
+};
