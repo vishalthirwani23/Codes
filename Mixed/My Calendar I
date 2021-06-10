@@ -1,0 +1,24 @@
+https://leetcode.com/problems/my-calendar-i/
+Code:
+
+class MyCalendar {
+public:
+    set<pair<int, int>> bookings;
+    MyCalendar() {
+        
+    }
+    bool book(int s, int e) {
+        if (s >= e) {
+            return false;
+        }
+        set<pair<int, int>>::iterator itr = bookings.lower_bound({s, e});
+        if (itr != bookings.end() && itr->first <= e - 1) {
+            return false;
+        }
+        if (itr != bookings.begin() && (--itr)->second - 1 >= s) {
+            return false;
+        }
+        bookings.insert({s, e});
+        return true; 
+    }
+};
