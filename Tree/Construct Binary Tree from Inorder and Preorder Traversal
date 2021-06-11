@@ -4,25 +4,24 @@ Code:
 Time Complexity- O(N) | Space Complexity- O(N)
 class Solution {
 public:
-    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int s, int e, int& preIndex, unordered_map<int, int>& valToIndex) {
+    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int s, int e, int preStart, unordered_map<int, int>& valToIndex) {
         if (s > e) {
             return NULL;
         }
-        TreeNode* root = new TreeNode(preorder[preIndex]);
-        int index = valToIndex[preorder[preIndex]];
-        preIndex++;
-        root->left = helper(preorder, inorder, s, index - 1, preIndex, valToIndex);
-        root->right = helper(preorder, inorder, index + 1, e, preIndex, valToIndex);
+        TreeNode* root = new TreeNode(preorder[preStart]);
+        int index = valToIndex[preorder[preStart]];
+        root->left = helper(preorder, inorder, s, index - 1, preStart + 1, valToIndex);
+        root->right = helper(preorder, inorder, index + 1, e, preStart + 1 + (index - s), valToIndex);
         return root;
     }
     
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int n = preorder.size(), preIndex = 0;
+        int n = preorder.size(), preStart = 0;
         unordered_map<int, int> valToIndex;
         for (int i = 0; i < n; i++) {
             valToIndex[inorder[i]] = i;
         }
-        return helper(preorder, inorder, 0, n - 1, preIndex, valToIndex);    
+        return helper(preorder, inorder, 0, n - 1, preStart, valToIndex);    
     }
 };
 
