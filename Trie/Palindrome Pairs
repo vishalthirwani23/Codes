@@ -1,0 +1,83 @@
+https://leetcode.com/problems/palindrome-pairs/
+Code:
+
+Time Complexity- O(N * K * K) | Space Complexity- O(N * K) // Where K is the average length of a word
+class TrieNode {
+public:
+    vector<int> indices;
+    int index = -1;
+    vector<TrieNode*> children;
+    TrieNode() {
+        index = -1;
+        for (int i = 0; i < 26; i++) {
+            children.push_back(NULL);
+        }
+    }
+};
+
+class Solution {
+public:
+    TrieNode* root = new TrieNode();
+    
+    vector<vector<int>> palindromePairs(vector<string>& words) {
+        vector<vector<int>> ans;
+        int n = words.size();
+        for (int i = 0; i < n; i++) {
+            add(words[i], i);
+        }
+        for (int i = 0; i < n; i++) {
+            search(words[i], i, ans);
+        }
+        return ans;
+    }
+    
+    void add(string str, int idx) {
+        TrieNode* node = root;
+        int n = str.size();
+        for (int i = n - 1; i >= 0; i--) {
+            if (isPalindrome(str, 0, i)) {
+                node->indices.push_back(idx);    
+            }
+            if (node->children[str[i] - 'a'] == NULL) {
+                node->children[str[i] - 'a'] = new TrieNode();
+            }    
+            node = node->children[str[i] - 'a'];
+        }
+        node->indices.push_back(idx);
+        node->index = idx;
+    }
+    
+    void search(string str, int idx, vector<vector<int>>& ans) {
+        TrieNode* node = root;
+        int n = str.size();
+        for (int i = 0; i < n && node; i++) {
+            if (node->index >= 0 && node->index != idx && isPalindrome(str, i, n - 1)) {
+                ans.push_back({idx, node->index});    
+            }
+            node = node->children[str[i] - 'a'];    
+        }
+        if (node) {
+            for (int i: node->indices) {
+                if (i != idx) {
+                    ans.push_back({idx, i});
+                }
+            }
+        }
+    }
+    
+    bool isPalindrome(string str, int l, int r) {
+        while (l < r) {
+            if (str[l] != str[r]) {
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+};
+
+
+
+
+
