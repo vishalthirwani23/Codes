@@ -1,0 +1,30 @@
+https://leetcode.com/problems/ugly-number-ii/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> ugly(n);
+        int p2 = 0, p3 = 0, p5 = 0, val2, val3, val5;
+        
+        ugly[0] = 1;
+        for (int i = 1; i < n; i++) {
+            val2 = ugly[p2] * 2;
+            val3 = ugly[p3] * 3;
+            val5 = ugly[p5] * 5;
+            ugly[i] = min({val2, val3, val5});
+            if (ugly[i] == val2) {
+                p2++;
+            }
+            if (ugly[i] == val3) {
+                p3++;
+            }
+            if (ugly[i] == val5) {
+                p5++;
+            }
+        }
+        
+        return ugly[n - 1];
+    }
+};
