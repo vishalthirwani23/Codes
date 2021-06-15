@@ -1,0 +1,38 @@
+https://leetcode.com/problems/matchsticks-to-square/
+Code:
+
+Time Complexity- O(NlogN + 4^N) | Space Complexity- O(N)
+class Solution {
+public:
+    bool helper(vector<int>& A, int n, vector<int>& v, int target, int index) {
+        if (index < 0) {
+            return v[0] == target && v[1] == target && v[2] == target;
+        }
+        for (int i = 0; i < 4; i++) {
+            if (A[index] + v[i] > target) {
+                continue;
+            }
+            v[i] += A[index];
+            if (helper(A, n, v, target, index - 1)) {
+                return true;    
+            }
+            v[i] -= A[index];
+        }
+        return false;
+    }
+    bool makesquare(vector<int>& A) {
+        int n = A.size(), sum = 0, len = 0, j = 0, k = 0;
+        vector<int> v(4, 0);
+        if (n < 4) {
+            return false;
+        }
+        sort(A.begin(), A.end());
+        for (int i = 0; i < n; i++) {
+            sum += A[i];
+        }
+        if (sum == 0 || sum % 4 != 0) {
+            return false;
+        }
+        return helper(A, n, v, sum / 4, n - 1);
+    }
+};
