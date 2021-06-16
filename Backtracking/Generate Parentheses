@@ -3,21 +3,28 @@ Code:
 
 class Solution {
 public:
-    void helper(int n,vector<string>& ans,int open, int close, int len,string temp){
-        if(len==2*n){
+    void helper(vector<string>& ans, string temp, int o, int c, int index, int n) {
+        if (index == 2 * n) {
             ans.push_back(temp);
-            return ;
+            return;
         }
-        if(open<n){
-            helper(n,ans,open+1,close,len+1,temp+"(");
+        if (o < n) {
+            o++;
+            temp += '(';
+            helper(ans, temp, o, c, index + 1, n);
+            o--;
+            temp.pop_back();
         }
-        if(open>close){
-             helper(n,ans,open,close+1,len+1,temp+")");
+        if (o > c) {
+            c++;
+            temp += ')';
+            helper(ans, temp, o, c, index + 1, n);
         }
     }
+    
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        helper(n,ans,0,0,0,"");
+        helper(ans, "", 0, 0, 0, n);
         return ans;
     }
 };
