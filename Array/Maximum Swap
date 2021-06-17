@@ -1,0 +1,30 @@
+https://leetcode.com/problems/maximum-swap/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(1)
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string str = to_string(num);
+        int n = str.size(), flag = 1;
+        vector<int> last(10);
+        
+        for (int i = 0; i < n; i++) {
+            last[str[i] - '0'] = i;   
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 9; j >= 0; j--) {
+                if ((str[i] - '0') < j && last[j] > i) {
+                    swap(str[i], str[last[j]]);
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 0) {
+                break;
+            }
+        }
+        
+        return stoi(str);
+    }
+};
