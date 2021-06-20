@@ -1,31 +1,27 @@
 https://leetcode.com/problems/single-element-in-a-sorted-array/
 Code:
 
+Time Complexity- O(logN) | Space Complexity- O(1)
 class Solution {
 public:
-    int singleNonDuplicate(vector<int>& nums) {
-        int n=nums.size();
+    int singleNonDuplicate(vector<int>& A) {
+        int n = A.size(), low = 0, high = n - 1, mid;
         
-        int s=0,e=n-1,mid;
-        while(s<e){
-            mid=s+(e-s)/2;
-            if(mid%2){
-                if(nums[mid]==nums[mid-1])
-                    s=mid+1;
-                else
-                    e=mid-1;
-                    
+        while (low < high) {
+            mid = low + (high - low) / 2;
+            if (mid % 2 == 1) {
+                mid--;
             }
-            else{
-                if(mid+1==n || nums[mid]!=nums[mid+1])
-                    e=mid;
-                else
-                    s=mid+2;
+            if (A[mid] == A[mid + 1]) {
+                low = mid + 2;
             }
- 
+            else {
+                high = mid;
+            }
         }
-        return nums[s];
-    }
+        
+        return A[low];
+    } 
 };
 
 
