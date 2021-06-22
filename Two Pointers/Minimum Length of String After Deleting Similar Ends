@@ -5,21 +5,17 @@ Time Complexity- O(N) | Space Complexity- O(1)
 class Solution {
 public:
     int minimumLength(string s) {
-        int n = s.length(), i = 0, j = n - 1;
-        char c = 'd';
+        int i = 0, j = s.size() - 1;
+        char c;
         
         while (i < j && s[i] == s[j]) {
             c = s[i];
             while (i < j && s[i] == c) {
                 i++;
             }
-            i--;
-            while (j > i && s[j] == c) {
+            while (i <= j && s[j] == c) {
                 j--;
             }
-            j++;
-            i++;
-            j--;
         }
         
         return j - i + 1;
