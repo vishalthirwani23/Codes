@@ -1,0 +1,46 @@
+https://leetcode.com/problems/redundant-connection/
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    int getPar(int n, vector<int>& parent) {
+        if (parent[n] == n) {
+            return n;
+        }
+        else {
+            return parent[n] = getPar(parent[n], parent); 
+        }
+        return 0;
+    }
+    
+    vector<int> findRedundantConnection(vector<vector<int>>& A) {
+        int n = A.size(), n1, n2, par1, par2;
+        vector<int> parent(n + 1), rank(n + 1, 0);
+        
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
+        }
+        
+        for (int i = 0; i < n; i++) {
+            n1 = A[i][0], n2 = A[i][1];
+            par1 = getPar(n1, parent);
+            par2 = getPar(n2, parent);
+            if (par1 == par2) {
+                return {A[i][0], A[i][1]};
+            }
+            else if (rank[par1] > rank[par2]){
+                parent[par2] = par1;
+            }
+            else if (rank[par2] > rank[par1]){
+                parent[par1] = par2;
+            }
+            else {
+                parent[par1] = par2;
+                rank[par2]++;
+            }
+        }
+        
+        return {};
+    }
+};
