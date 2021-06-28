@@ -1,0 +1,32 @@
+https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/
+Code:
+
+Time Complexity- O(NlogN) | Space Complexity- O(N)
+class Solution {
+public:
+    int maxEvents(vector<vector<int>>& A) {
+        int n = A.size(), d, ans = 0, i = 0;
+        priority_queue<int, vector<int>, greater<int>> pq;
+        
+        sort(A.begin(), A.end());
+        while (i < n || !pq.empty()) {
+            if (pq.empty()) {
+                d = A[i][0];
+            }
+            while (i < n && A[i][0] == d) {
+                pq.push(A[i][1]);
+                i++;
+            }
+            while (!pq.empty() && pq.top() < d) {
+                pq.pop();
+            }
+            if (!pq.empty()) {
+                ans++;
+                pq.pop();
+                d++;
+            }
+        }
+        
+        return ans;
+    }
+};
