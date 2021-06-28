@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1#
+Code:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution{
+    public:
+    int longestKSubstr(string s, int k) {
+        int ans = -1, i = 0, j = 0, n = s.size();
+        unordered_map<int, int> m;
+        
+        while (i < n) {
+            m[s[i]]++;
+            i++;
+            if (m.size() == k) {
+                ans = max(ans, i - j);
+            }
+            else if (m.size() > k) {
+                if (m[s[j]] == 1) {
+                    m.erase(s[j]);   
+                    ans = max(ans, i - j - 1);
+                }
+                else {
+                    m[s[j]]--;
+                }
+                j++;
+            }
+        }
+        
+        return ans;
+    }
+};
