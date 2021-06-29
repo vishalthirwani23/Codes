@@ -1,38 +1,38 @@
 https://leetcode.com/problems/reverse-linked-list/
 Code:
 
-Method 1: Iterative
+Iterative Solution:
+
+Time Complexity- O(N) | Space Complexity- O(1)
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode *curr,*prev,*nxt;
-        curr=head;prev=NULL;
-        while(curr!=NULL){
-            nxt= curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=nxt;
+        ListNode *curr = head, *prev = NULL, *next;
+        while (curr != NULL) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
         return prev;
     }
 };
 
-Method 2: Recursive
+Recursive Solution:
+
+Time Complexity- O(N) | Space Complexity- O(N)
 class Solution {
 public:
-    
-    ListNode* reverseListrec(ListNode* cur,ListNode* prev){
-       
-        if(cur==NULL) {
+    ListNode* helper(ListNode* curr, ListNode* prev) {
+        if (curr == NULL) {
             return prev;
         }
-        ListNode* next=cur->next;
-        cur->next=prev;
-        
-       return reverseListrec(next,cur);
-        
+        ListNode* next = curr->next;
+        curr->next = prev;
+        return helper(next, curr);
     }
+    
     ListNode* reverseList(ListNode* head) {
-         return reverseListrec(head,NULL);
+        return helper(head, NULL);;
     }
 };
