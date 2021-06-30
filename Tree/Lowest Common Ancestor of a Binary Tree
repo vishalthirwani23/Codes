@@ -36,10 +36,8 @@ public:
         vector<TreeNode*> pathP = findPath(root, p);
         vector<TreeNode*> pathQ = findPath(root, q);
         
-        reverse(pathP.begin(), pathP.end());
-        reverse(pathQ.begin(), pathQ.end());
         TreeNode* ans = NULL;
-        for (int i = 0; i < pathP.size() && i < pathQ.size() && pathP[i] == pathQ[i]; i++) {
+        for (int i = pathP.size() - 1, j = pathQ.size() - 1; i >= 0 && j >=0 && pathP[i] == pathQ[j]; i--, j--) {
             ans = pathP[i];
         }
         
