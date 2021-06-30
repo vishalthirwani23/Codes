@@ -1,15 +1,71 @@
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 Code:
 
+Iterative Solution:
+
+Time Complexity- O(N) | Space Complexity- O(N)
+class Solution {
+public:
+    vector<TreeNode*> findPath(TreeNode* root, TreeNode* p) {
+        vector<TreeNode*> path;
+        if (root == NULL) {
+            return {};
+        }
+        if (root == p) {
+            return {p};
+        }
+        
+        vector<TreeNode*> left = findPath(root->left, p);
+        vector<TreeNode*> right = findPath(root->right, p);
+        if (left.empty() && right.empty()) {
+            return {};
+        }
+        if (left.empty()) {
+            right.push_back(root);
+            return right;
+        }
+        if (right.empty()) {
+            left.push_back(root);
+            return left;
+        }
+        
+        return {};
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode*> pathP = findPath(root, p);
+        vector<TreeNode*> pathQ = findPath(root, q);
+        
+        reverse(pathP.begin(), pathP.end());
+        reverse(pathQ.begin(), pathQ.end());
+        TreeNode* ans = NULL;
+        for (int i = 0; i < pathP.size() && i < pathQ.size() && pathP[i] == pathQ[i]; i++) {
+            ans = pathP[i];
+        }
+        
+        return ans;
+    }
+};
+
+Recursive Solution:
+
+Time Complexity- O(N) | Space Complexity- O(H)
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(!root || root==p || root==q) return root;
-        TreeNode *left=lowestCommonAncestor(root->left,p,q);
-        TreeNode *right=lowestCommonAncestor(root->right,p,q);
-        if(left==NULL && right==NULL) return NULL;
-        else if(left!=NULL && right!=NULL) return root;
-        else
-            return left==NULL?right:left;
+        if (root == NULL || root == p || root == q) {
+            return root;
+        }    
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        
+        if (left == NULL && right == NULL) {
+            return NULL;
+        }
+        if (left != NULL && right != NULL) {
+            return root;
+        }
+        
+        return left == NULL ? right : left;
     }
 };
